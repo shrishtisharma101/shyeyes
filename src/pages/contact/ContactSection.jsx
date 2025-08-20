@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
-
+import img1 from '../../assets/images/contact/01.png';
+import img2 from '../../assets/images/contact/02.png';
+import img3 from '../../assets/images/contact/03.png';
+import img4 from '../../assets/images/contact/04.png';
 const ContactSection = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -113,7 +116,7 @@ const ContactSection = () => {
                   <div className="contact-info-item">
                     <div className="contact-info-inner">
                       <div className="contact-info-thumb">
-                        <img src="assets/images/contact/01.png" alt="address" />
+                        <img src={img1} alt="address" />
                       </div>
                       <div className="contact-info-details">
                         <span className="fw-bold">Office Address</span>
@@ -124,7 +127,7 @@ const ContactSection = () => {
                   <div className="contact-info-item">
                     <div className="contact-info-inner">
                       <div className="contact-info-thumb">
-                        <img src="assets/images/contact/02.png" alt="phone" />
+                        <img src={img2} alt="phone" />
                       </div>
                       <div className="contact-info-details">
                         <span className="fw-bold">Phone Number</span>
@@ -135,7 +138,7 @@ const ContactSection = () => {
                   <div className="contact-info-item">
                     <div className="contact-info-inner">
                       <div className="contact-info-thumb">
-                        <img src="assets/images/contact/03.png" alt="email" />
+                        <img src={img3} alt="email" />
                       </div>
                       <div className="contact-info-details">
                         <span className="fw-bold">Send Mail</span>
@@ -146,7 +149,7 @@ const ContactSection = () => {
                   <div className="contact-info-item">
                     <div className="contact-info-inner">
                       <div className="contact-info-thumb">
-                        <img src="assets/images/contact/04.png" alt="website" />
+                        <img src={img4} alt="website" />
                       </div>
                       <div className="contact-info-details">
                         <span className="fw-bold">Our Website</span>

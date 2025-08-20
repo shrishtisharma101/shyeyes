@@ -1,10 +1,14 @@
 import React from 'react';
+import img1 from '../../assets/images/about/01.png';
+import img2 from '../../assets/images/about/02.png';
+import img3 from '../../assets/images/about/03.png';
+import img4 from '../../assets/images/about/04.png';
 
 const stats = [
-  { id: 1, value: "50,452", label: "Verified Profiles", icon: "assets/images/about/01.png" },
-  { id: 2, value: "12,784", label: "Active Members Today", icon: "assets/images/about/02.png" },
-  { id: 3, value: "6,789", label: "Men Currently Online", icon: "assets/images/about/03.png" },
-  { id: 4, value: "5,995", label: "Women Currently Online", icon: "assets/images/about/04.png" }
+  { id: 1, value: "50,452", label: "Verified Profiles", icon: img1 },
+  { id: 2, value: "12,784", label: "Active Members Today", icon: img2 },
+  { id: 3, value: "6,789", label: "Men Currently Online", icon: img3 },
+  { id: 4, value: "5,995", label: "Women Currently Online", icon: img4 }
 ];
 
 const AboutSection = () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import img01 from '../../assets/images/banner/01.png'
 
 const BannerSection = () => {
   return (
@@ -39,7 +40,7 @@ const BannerSection = () => {
             </div>
             <div className="col-lg-6">
               <div className="banner-thumb">
-                <img src="assets/images/banner/01.png" alt="SHY-EYES Banner Image" />
+                <img src={img01} alt="SHY-EYES Banner Image" />
               </div>
             </div>
           </div>

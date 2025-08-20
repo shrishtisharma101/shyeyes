@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import img1 from '../../assets/images/footer/icons/01.png';
+import img2 from '../../assets/images/footer/icons/02.png';
+import img3 from '../../assets/images/footer/icons/03.png';
+
 const Footer = () => {
   return (
     <footer className="footer-section">
@@ -11,7 +15,7 @@ const Footer = () => {
               <div className="footer-top-item lab-item">
                 <div className="lab-inner">
                   <div className="lab-thumb">
-                    <img src="assets/images/footer/icons/01.png" alt="Phone-icon" />
+                    <img src={img1} alt="Phone-icon" />
                   </div>
                   <div className="lab-content">
                     <span>Phone Number : +00000000</span>
@@ -23,7 +27,7 @@ const Footer = () => {
               <div className="footer-top-item lab-item">
                 <div className="lab-inner">
                   <div className="lab-thumb">
-                    <img src="assets/images/footer/icons/02.png" alt="email-icon" />
+                    <img src={img2} alt="email-icon" />
                   </div>
                   <div className="lab-content">
                     <span>Email : admin@shyeyes.com</span>
@@ -35,7 +39,7 @@ const Footer = () => {
               <div className="footer-top-item lab-item">
                 <div className="lab-inner">
                   <div className="lab-thumb">
-                    <img src="assets/images/footer/icons/03.png" alt="location-icon" />
+                    <img src={img3} alt="location-icon" />
                   </div>
                   <div className="lab-content">
                     <span>Address : noida, Greater Noida</span>
@@ -62,7 +66,7 @@ const Footer = () => {
                       partnerships befor revolutionar growth strategie
                       improvement viaing awesome
                     </p>
-                    <img src="assets/images/footer/about.jpg" alt="about-image" className="footer-abt-img" />
+                    <img src={img3} alt="about-image" className="footer-abt-img" />
                   </div>
                 </div>
               </div>
@@ -79,7 +83,7 @@ const Footer = () => {
                       <div className="lab-inner">
                         <div className="lab-thumb">
                           <a href="#">
-                            <img src="assets/images/footer/01.jpg" alt="footer-widget-img" />
+                            <img src={img1} alt="footer-widget-img" />
                           </a>
                         </div>
                         <div className="lab-content">
@@ -97,7 +101,7 @@ const Footer = () => {
                       <div className="lab-inner">
                         <div className="lab-thumb">
                           <a href="#">
-                            <img src="assets/images/footer/02.jpg" alt="footer-widget-img" />
+                            <img src={img1} alt="footer-widget-img" />
                           </a>
                         </div>
                         <div className="lab-content">
@@ -115,7 +119,7 @@ const Footer = () => {
                       <div className="lab-inner">
                         <div className="lab-thumb">
                           <a href="#">
-                            <img src="assets/images/footer/03.jpg" alt="footer-widget-img" />
+                            <img src={img1} alt="footer-widget-img" />
                           </a>
                         </div>
                         <div className="lab-content">

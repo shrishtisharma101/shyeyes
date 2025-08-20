@@ -1,33 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import img1 from '../../assets/images/group/01.jpg';
+import img2 from '../../assets/images/group/02.jpg';
+import img3 from '../../assets/images/group/03.jpg'; 
+import img4 from '../../assets/images/group/04.jpg';
+
+import mem1 from '../../assets/images/group/group-mem/01.png';
+import mem2 from '../../assets/images/group/group-mem/01.png';
+import mem3 from '../../assets/images/group/group-mem/01.png';
+import mem4 from '../../assets/images/group/group-mem/01.png';
+import mem5 from '../../assets/images/group/group-mem/01.png';
+import mem6 from '../../assets/images/group/group-mem/06.png'
+
+const memberImgs = [mem1, mem2, mem3, mem4, mem5, mem6];
 
 const groups = [
   {
     id: 1,
     title: "💬 Flirty Vibes",
     description: "Where playful hearts meet & sweet convos begin. Join and vibe with singles worldwide!",
-    image: "assets/images/group/01.jpg",
+    image: img1,
     members: 12
   },
   {
     id: 2,
     title: "🌍 Global Crushes",
     description: "From Mumbai to Madrid – find flirty friends & fun convos from around the world!",
-    image: "assets/images/group/02.jpg",
+    image: img2,
     members: 12
   },
   {
     id: 3,
     title: "🎶 Music & Match",
     description: "Share your favorite romantic tracks & find your rhythm with like-minded singles!",
-    image: "assets/images/group/03.jpg",
+    image: img3,
     members: 12
   },
   {
     id: 4,
     title: "📸 Selfie Singles",
     description: "Post your cutest selfies, react, and connect with fun, flirty members instantly 💘",
-    image: "assets/images/group/04.jpg",
+    image: img4,
     members: 12
   }
 ];
@@ -52,14 +65,14 @@ const GroupSection = () => {
                     <div className="lab-content">
                       <h4>{group.title}</h4>
                       <p>{group.description}</p>
-                      <ul className="img-stack d-flex">
-                        {[...Array(6)].map((_, i) => (
-                          <li key={i}>
-                            <img src={`assets/images/group/group-mem/0${i + 1}.png`} alt="member-img" />
-                          </li>
-                        ))}
-                        <li className="bg-theme">{group.members}+</li>
-                      </ul>
+                     <ul className="img-stack d-flex">
+  {memberImgs.map((mem, i) => (
+    <li key={i}>
+      <img src={mem} alt={`member-${i}`} />
+    </li>
+  ))}
+  <li className="bg-theme">{group.members}+</li>
+</ul>
                       <div className="test">
                         <Link to="/active-group" className="lab-btn">
                           <i className="icofont-users-alt-5"></i> View Group

@@ -1,4 +1,8 @@
 import React from 'react';
+import img1 from '../../assets/images/app/apple.png';
+import img2 from '../../assets/images/app/mobile-view.png';
+import img3 from '../../assets/images/app/playstore.png';
+import img4 from '../../assets/images/app/shape.png';
 
 const AppSection = () => {
   return (
@@ -13,7 +17,7 @@ const AppSection = () => {
               <li>
                 <a href="#" className="d-flex flex-wrap align-items-center">
                   <div className="app-thumb">
-                    <img src="assets/images/app/apple.png" alt="apple" />
+                    <img src={img1} alt="apple" />
                   </div>
                   <div className="app-content">
                     <p>Download on the</p>
@@ -24,7 +28,7 @@ const AppSection = () => {
               <li className="d-inline-block">
                 <a href="#" className="d-flex flex-wrap align-items-center">
                   <div className="app-thumb">
-                    <img src="assets/images/swipe-down.png" style={{width: "30px"}} alt="Download App" />
+                    <img src={img3} style={{width: "30px"}} alt="Download App" />
                   </div>
                   <div className="app-content">
                     <p>Get it on APK File</p>
@@ -35,7 +39,7 @@ const AppSection = () => {
             </ul>
           </div>
           <div className="mobile-app">
-            <img src="assets/images/app/mobile-view.png" alt="Shy-Eyes Mobile Preview" />
+            <img src={img2} alt="Shy-Eyes Mobile Preview" />
           </div>
         </div>
       </div>

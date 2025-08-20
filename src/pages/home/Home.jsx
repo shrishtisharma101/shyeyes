@@ -13,7 +13,7 @@ const Home = () => {
   return (
     <>
       <BannerSection />
-        <MemberSection />
+        <MemberSection/>
         <AboutSection />
         <WorkSection />
         <StorySection />

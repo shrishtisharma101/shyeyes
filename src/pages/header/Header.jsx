@@ -1,50 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import menuData from './menuData';
-
+import Logo from '../../assets/images/logo/shylogo.png'; // Adjust the path as necessary
 const Header = () => {
   return (
     <header className="header-section">
-      <div className="header-top">
-        <div className="container">
-          <div className="header-top-area">
-            <ul className="left">
-              <li>
-                <i className="icofont-ui-call"></i> <span>+00000000</span>
-              </li>
-              <li>
-                <i className="icofont-location-pin"></i> Noida, Greater Noida
-              </li>
-            </ul>
-            <ul className="social-icons d-flex align-items-center">
-              <li>
-                <p>Find us on :</p>
-              </li>
-              <li>
-                <a href="#" className="fb"><i className="icofont-facebook-messenger"></i></a>
-              </li>
-              <li>
-                <a href="#" className="twitter"><i className="icofont-twitter"></i></a>
-              </li>
-              <li>
-                <a href="#" className="vimeo"><i className="icofont-vimeo"></i></a>
-              </li>
-              <li>
-                <a href="#" className="skype"><i className="icofont-skype"></i></a>
-              </li>
-              <li>
-                <a href="#" className="rss"><i className="icofont-rss-feed"></i></a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
       <div className="header-bottom">
         <div className="container">
           <div className="header-wrapper">
             <div className="logo">
               <Link to="/">
-                <img src="assets/logo/shylogo.png" alt="logo" />
+                <img src={Logo} alt="logo" style={{marginTop:5}}/>
               </Link>
             </div>
            <div className="menu-area">

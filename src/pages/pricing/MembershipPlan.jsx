@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import '/Member.css';
+import { Link, useNavigate } from 'react-router-dom';
+// import './Member.css';
 const MembershipPlans = () => {
+  const navigate = useNavigate();
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedPlan, setSelectedPlan] = useState('');
 
@@ -116,16 +118,12 @@ const MembershipPlans = () => {
                               </li>
                             ))}
                           </ul>
-                          <a 
-                            href="#" 
-                            className="purchase-btn" 
-                            onClick={(e) => {
-                              e.preventDefault();
-                              openPaymentModal(plan.planId);
-                            }}
+                          <button 
+                            className="purchase-btn"
+                            onClick={() => navigate("/payment", { state: { planId: plan.planId } })}
                           >
                             {plan.buttonText}
-                          </a>
+                          </button>
                         </div>
                       </div>
                     </div>

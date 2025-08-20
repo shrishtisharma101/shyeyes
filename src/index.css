@@ -2899,14 +2899,14 @@ select {
 }
 
 /*================*** Header Section Start Here     ***===================*/
-.header-section {
+/* .header-section {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   z-index: 999;
-}
+} */
 
-.header-section.header-fixed {
+/* .header-section.header-fixed {
   position: fixed;
   top: 0;
   left: 0;
@@ -3046,7 +3046,12 @@ select {
   .header-top-area .social-icons li {
     flex-grow: 1;
   }
-}
+} */
+
+
+
+
+
 
 .header-wrapper .logo a img {
   max-width: 100%;
@@ -3062,6 +3067,7 @@ select {
 
 .header-wrapper .logo a img {
   max-width: 100%;
+  height: 70px;
 }
 
 @media (max-width: 575px) {

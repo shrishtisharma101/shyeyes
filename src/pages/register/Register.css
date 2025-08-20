@@ -38,14 +38,14 @@
     background-color: #fff;
   }
 
-  .form-group i.material-icons {
+  .form-group .material-icons {
     position: absolute;
     top: 12px;
     font-size: 20px;
     color: #e43059;
   }
 
-  .form-group i.material-icons:first-child {
+  .form-group .material-icons:first-child {
     left: 10px;
   }
 

@@ -2,7 +2,10 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './AboutUs.css';
 import Aos from 'aos';
-
+import img1 from '../../assets/images/story/01.jpg';
+import img2 from '../../assets/images/story/02.jpg';
+import img3 from '../../assets/images/story/03.jpg';
+import img4 from '../../assets/images/about/04.png';
 const AboutUs = () => {
   useEffect(() => {
     // Initialize AOS animation
@@ -51,8 +54,8 @@ const AboutUs = () => {
       <section className="section">
         <div className="images-wrapper" data-aos="fade-right" id="images-section">
           <div className="images">
-            <img src="assets/images/story11.webp" alt="Dating Couple" />
-            <img src="assets/images/Story7.avif" alt="Romantic Moment" />
+            <img src={img1} alt="Dating Couple" />
+            <img src={img2} alt="Romantic Moment" />
           </div>
           <div className="badge" id="experience-badge">
             <i className="fa-solid fa-heart"></i> 15+ Years of Love Connections
@@ -141,7 +144,7 @@ const AboutUs = () => {
             </div>
           </div>
           <div className="expertise-image">
-            <img src="assets/images/Story5.avif" alt="Happy Couple on a Date" />
+            <img src={img3} alt="Happy Couple on a Date" />
           </div>
         </div>
       </section>

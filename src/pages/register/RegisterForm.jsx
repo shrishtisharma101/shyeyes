@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Register.css';
+import { Call, Email, LocationCity, Lock, Person, Visibility, VisibilityOff } from '@mui/icons-material';
 const RegisterForm = () => {
   const [formData, setFormData] = useState({
     firstname: '',
@@ -58,7 +59,7 @@ const RegisterForm = () => {
       <h2>REGISTER</h2>
       <form className="account-form" onSubmit={handleSubmit}>
         <div className="form-group">
-          <i className="material-icons">person</i>
+           <Person className='material-icons'/>
           <input 
             type="text" 
             placeholder="First Name" 
@@ -69,7 +70,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <i className="material-icons">person</i>
+          <Person className='material-icons'/>
           <input 
             type="text" 
             placeholder="Last Name" 
@@ -80,7 +81,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <i className="material-icons">email</i>
+          <Email className="material-icons"/>
           <input 
             type="email" 
             placeholder="Email" 
@@ -91,7 +92,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <i className="material-icons">call</i>
+           <Call className="material-icons"/>
           <input 
             type="text" 
             placeholder="Phone" 
@@ -102,7 +103,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <i className="material-icons">location_city</i>
+          <LocationCity className="material-icons"/>
           <input 
             type="text" 
             placeholder="Address" 
@@ -113,7 +114,7 @@ const RegisterForm = () => {
           />
         </div>
         <div className="form-group">
-          <i className="material-icons">lock</i>
+           <Lock className="material-icons"/>
           <input 
             type={showPassword ? "text" : "password"} 
             placeholder="Password" 
@@ -128,11 +129,11 @@ const RegisterForm = () => {
             onClick={() => togglePassword('password')}
             style={{cursor: 'pointer'}}
           >
-            {showPassword ? 'visibility' : 'visibility_off'}
+            {showPassword ? <Visibility/> : <VisibilityOff/>}
           </i>
         </div>
         <div className="form-group">
-          <i className="material-icons">lock</i>
+          <Lock className="material-icons"/>
           <input 
             type={showConfirmPassword ? "text" : "password"} 
             placeholder="Confirm Password" 
@@ -147,7 +148,7 @@ const RegisterForm = () => {
             onClick={() => togglePassword('confirm_password')}
             style={{cursor: 'pointer'}}
           >
-            {showConfirmPassword ? 'visibility' : 'visibility_off'}
+            {showConfirmPassword ?<Visibility/> : <VisibilityOff/>}
           </i>
         </div>
         

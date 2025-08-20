@@ -12,6 +12,10 @@ const Profile =lazy(()=> import("../pages/profile/Profile"));
 const ContactSection =lazy(()=>import("../pages/contact/ContactSection"));
 const LoginSection = lazy(()=>import("../pages/login/LoginSection"));
 const RegisterForm =lazy(()=>import( "../pages/register/RegisterForm"));
+const MembershipPlans = lazy(() => import("../pages/pricing/MembershipPlan"));
+const ProfilePage = lazy(() => import("../pages/profile/ProfilePage"));
+const ChatInterface = lazy(() => import("../components/chats/ChatInterface"));
+const PaymentPage = lazy(() => import("../pages/payment/PaymentPage"));
 
 const router = createBrowserRouter([
   {
@@ -28,6 +32,7 @@ const router = createBrowserRouter([
             <AboutUs />
       },
       {
+
         path: "/profile2",
         element: 
             <Profile />
@@ -47,10 +52,22 @@ const router = createBrowserRouter([
         element: 
             <RegisterForm />
       },
-      {
-        path:'/pricing-plan',
-        element:<MembershipPlan/>
-      }
+     {
+      path:"/pricing-plan",
+      element:<MembershipPlans/>,
+     },
+    {
+      path:"/profile",
+      element:<ProfilePage/>,
+     },
+     {
+      path:"/chat",
+      element:<ChatInterface/>,
+     },
+     {
+      path:"/payment",
+      element:<PaymentPage/>,
+     },
     ],
   },
 ]);

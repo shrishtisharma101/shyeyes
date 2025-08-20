@@ -1,23 +1,26 @@
 import React from 'react';
+import img1 from '../../assets/images/work/01.png';
+import img2 from '../../assets/images/work/02.png';
+import img3 from '../../assets/images/work/03.png';
 
 const steps = [
   { 
     id: 1, 
     title: "Create Your Profile", 
     description: "Sign up and tell us about yourself. Upload your best photos and share your interests to attract like-minded singles.",
-    icon: "assets/images/work/01.png"
+    icon: img1
   },
   { 
     id: 2, 
     title: "Discover Your Matches", 
     description: "Browse through verified profiles, use filters to find your perfect match, and start meaningful conversations instantly.",
-    icon: "assets/images/work/02.png"
+    icon: img2
   },
   { 
     id: 3, 
     title: "Start Dating & Enjoy!", 
     description: "Connect, chat, and plan your first date. With SHY-EYES, you're just a few clicks away from exciting real-life connections.",
-    icon: "assets/images/work/03.png"
+    icon: img3
   }
 ];
 

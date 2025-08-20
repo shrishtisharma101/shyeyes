@@ -5,7 +5,7 @@ const menuData = [
   {
     label: "Features",
     subMenu: [
-      { label: "All Members", path: "/members" },
+      // { label: "All Members", path: "/members" },
       { label: "Profiles", path: "/profile2" },
       { label: "Member Profile", path: "/profile" },
       { label: "Pricing Plan", path: "/pricing-plan" },

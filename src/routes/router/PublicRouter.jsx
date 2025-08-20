@@ -6,16 +6,19 @@ import LottieAnimations from '../../components/common/LottieAnimations'
 import SuspenseWrapper from '../../components/common/SuspenseWrapper'
 
 const PublicRouter = () => {
+  const hideFooterRoutes = ["/chat", "/login", "/register",  "/payment"];
+  const shouldHideLayout = hideFooterRoutes.includes(location.pathname);
+
   return (
    <>
       {/* <Preloader /> */}
-      {/* <LottieAnimations /> */}
-      <Header />
+      <LottieAnimations />
+      {!shouldHideLayout && <Header />}
       <SuspenseWrapper>
         <Outlet />
       </SuspenseWrapper>
 
-      <Footer />
+     {!shouldHideLayout && <Footer />}
     </>
   )
 }

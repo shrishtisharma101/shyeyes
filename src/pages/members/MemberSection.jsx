@@ -1,13 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import img1 from '../../assets/images/member/01.jpg';
+import img2 from '../../assets/images/member/02.jpg';   
+import img3 from '../../assets/images/member/03.jpg';
+import img4 from '../../assets/images/member/04.jpg';
+
+import img5 from '../../assets/images/member/05.jpg';
+import img6 from '../../assets/images/member/06.jpg';
 
 const members = [
-  { id: 1, name: "Aarav Sharma", active: "1 Day", image: "assets/images/member/01.jpg" },
-  { id: 2, name: "Priya Singh", active: "2 Days", image: "assets/images/member/02.jpg" },
-  { id: 3, name: "Rahul Verma", active: "3 Days", image: "assets/images/member/03.jpg" },
-  { id: 4, name: "Ananya Desai", active: "5 Days", image: "assets/images/member/04.jpg" },
-  { id: 5, name: "Rohan Kapoor", active: "1 Day", image: "assets/images/member/05.jpg" },
-  { id: 6, name: "Simran Kaur", active: "1 Day", image: "assets/images/member/06.jpg" }
+  { id: 1, name: "Aarav Sharma", active: "1 Day", image: img1 },
+  { id: 2, name: "Priya Singh", active: "2 Days", image: img2 },
+  { id: 3, name: "Rahul Verma", active: "3 Days", image: img3 },
+  { id: 4, name: "Ananya Desai", active: "5 Days", image: img4 },
+  { id: 5, name: "Rohan Kapoor", active: "1 Day", image: img5 },
+  { id: 6, name: "Simran Kaur", active: "1 Day", image: img6 },
 ];
 
 const MemberSection = () => {
