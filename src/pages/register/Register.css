@@ -1,0 +1,151 @@
+
+  /* body {
+    background: #f8f8f8;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  } */
+
+  .signup-container {
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #fff0f3;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(255, 80, 120, 0.2);
+    position: relative;
+  }
+
+  .signup-container h2 {
+    text-align: center;
+    color: #e43059;
+    margin-bottom: 30px;
+  }
+
+  .form-group {
+    position: relative;
+    margin-bottom: 20px;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 12px 40px 12px 40px;
+    border: 1px solid #f9c6cf;
+    border-radius: 12px !important;
+    outline: none;
+    font-size: 16px;
+    color: #2d2c2c;
+    background-color: #fff;
+  }
+
+  .form-group i.material-icons {
+    position: absolute;
+    top: 12px;
+    font-size: 20px;
+    color: #e43059;
+  }
+
+  .form-group i.material-icons:first-child {
+    left: 10px;
+  }
+
+  .form-group .toggle-password {
+    right: 10px;
+    cursor: pointer;
+  }
+
+  .form-group input[type="password"],
+  .form-group input[type="text"] {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  .form-group input[type="email"] {
+  padding-left: 40px; /* enough to clear icon */
+}
+
+  .form-group input[type="text"]:focus, .form-group input[type="email"]:focus,
+.form-group input[type="password"]:focus {
+  border: 1px solid red;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 0, 0, 0.5); /* Optional glow effect */
+}
+
+  .signup-btn {
+    background-color: #e43059;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    width: 100%;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .signup-btn:hover {
+    background-color: #c01f44;
+  }
+
+  .login-link {
+    margin-top: 15px;
+    text-align: center;
+    color: #e43059;
+    font-size: 14px;
+  }
+
+
+
+
+    /* Heart Animation Styles */
+    #hearts {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+ 
+    .heart {
+      position: absolute;
+      bottom: 0;
+      width: 20px;
+      height: 20px;
+      background-color: #f95872;
+      transform: rotate(45deg);
+      animation: floatUp 7s linear infinite;
+      opacity: 0.8;
+    }
+ 
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #f95872;
+      border-radius: 50%;
+    }
+ 
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+ 
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+ 
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) rotate(45deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(45deg);
+        opacity: 0;
+      }
+    }
+

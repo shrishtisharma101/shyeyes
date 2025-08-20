@@ -111,7 +111,6 @@ const handleChatClick = () => {
       image: "assets/images/alexandru-zdrobau-BGz8vO3pK8k-unsplash.jpg",
       online: true
     },
-    // Add more users here...
   ]);
 
   const handleRequest = (id) => {

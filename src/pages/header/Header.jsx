@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import menuData from './menuData';
 
 const Header = () => {
   return (
@@ -46,39 +47,47 @@ const Header = () => {
                 <img src="assets/logo/shylogo.png" alt="logo" />
               </Link>
             </div>
-            <div className="menu-area">
-              <ul className="menu">
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/AboutUs">About Us</Link></li>
-                <li>
-                  <a href="#0">Features</a>
-                  <ul className="submenu">
-                    <li><Link to="/members">All Members</Link></li>
-                    <li><Link to="/profile2">Profiles</Link></li>
-                    <li><Link to="/profile">Member Profile</Link></li>
-                    <li><Link to="/pricing-plan">Pricing Plan</Link></li>
-                  </ul>
-                </li>
-                <li>
-                  <a href="#0">Blog</a>
-                  <ul className="submenu">
-                    <li><Link to="/blog">Blog</Link></li>
-                    <li><Link to="/blog-single">Blog Single</Link></li>
-                  </ul>
-                </li>
-                <li><Link to="/contact">Contact</Link></li>
-              </ul>
-              <Link to="/login" className="login"><i className="icofont-user"></i> <span>LOG IN</span></Link>
-              <Link to="/register" className="signup"><i className="icofont-users"></i> <span>REGISTER</span></Link>
-              <div className="header-bar d-lg-none">
-                <span></span>
-                <span></span>
-                <span></span>
-              </div>
-              <div className="ellepsis-bar d-lg-none">
-                <i className="icofont-info-square"></i>
-              </div>
-            </div>
+           <div className="menu-area">
+      <ul className="menu">
+        {menuData.map((item, index) => (
+          <li key={index}>
+            {item.path ? (
+              <Link to={item.path}>{item.label}</Link>
+            ) : (
+              <>
+                <a href="#0">{item.label}</a>
+                <ul className="submenu">
+                  {item.subMenu?.map((sub, subIndex) => (
+                    <li key={subIndex}>
+                      <Link to={sub.path}>{sub.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      {/* Login / Register */}
+      <Link to="/login" className="login">
+        <i className="icofont-user"></i> <span>LOG IN</span>
+      </Link>
+      <Link to="/register" className="signup">
+        <i className="icofont-users"></i> <span>REGISTER</span>
+      </Link>
+
+      {/* Mobile icons */}
+      <div className="header-bar d-lg-none">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div className="ellepsis-bar d-lg-none">
+        <i className="icofont-info-square"></i>
+      </div>
+    </div>
+
           </div>
         </div>
       </div>
