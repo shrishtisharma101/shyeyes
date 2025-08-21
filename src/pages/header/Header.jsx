@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import menuData from './menuData';
-import Logo from '../../assets/images/logo/shylogo.png'; // Adjust the path as necessary
+import Logo from '../../assets/images/logo/shylogo.png';
+// Adjust the path as necessary
 const Header = () => {
   return (
+    <>
     <header className="header-section">
       <div className="header-bottom">
         <div className="container">
@@ -58,6 +60,7 @@ const Header = () => {
         </div>
       </div>
     </header>
+    </>
   );
 };
 

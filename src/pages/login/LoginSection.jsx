@@ -30,7 +30,7 @@ const LoginSection = () => {
       }).then((result) => {
         if (result.isConfirmed) {
           // Redirect to profile page
-          window.location.href = "profile2.html";
+          window.location.href = "profile";
         }
       });
     }

@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import PublicRouter from "./router/PublicRouter";
+import NextStep from "../pages/register/NextStep";
 
 
 
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
      {
       path:"/payment",
       element:<PaymentPage/>,
+     },
+          {
+      path:"/nextstep",
+      element:<NextStep/>,
      },
     ],
   },

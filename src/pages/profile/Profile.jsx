@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { FaPhoneAlt, FaCommentDots, FaVideo } from "react-icons/fa";
 import UserCard from "./UserCard";
+import Im1 from "../../assets/images/alexandru-zdrobau-BGz8vO3pK8k-unsplash.jpg";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -18,28 +19,28 @@ const handleClick = () => {
       id: 1,
       name: "Jimmy Perez",
       age: "23 Years Old",
-      image: "assets/images/aejaz-memon-29X9pcVHYTI-unsplash.jpg",
+      image: Im1,
       online: true,
     },
     {
       id: 2,
       name: "Vanshi Chudhary",
       age: "21 Years Old",
-      image: "assets/images/alexandru-zdrobau-BGz8vO3pK8k-unsplash.jpg",
+      image: Im1,
       online: true,
     },
     {
       id: 3,
       name: "Amit Kumar",
       age: "21 Years Old",
-      image: "assets/images/alexandru-zdrobau-BGz8vO3pK8k-unsplash.jpg",
+      image: Im1,
       online: true,
     },
     {
       id: 4,
       name: "Sakshi Sharma",
       age: "21 Years Old",
-      image: "assets/images/alexandru-zdrobau-BGz8vO3pK8k-unsplash.jpg",
+      image: Im1,
       online: true,
     },
   ]);

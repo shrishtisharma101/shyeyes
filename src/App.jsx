@@ -6,10 +6,12 @@ import './assets/css/style.css';
 import '../src/pages/profile/Profile.css';
 import 'aos/dist/aos.css';
 import MainRoutes from './routes/MainRoutes';
+
 function App() {
+
   return (
       <>
-        <MainRoutes/>
+        <MainRoutes />
       </>
    
   );

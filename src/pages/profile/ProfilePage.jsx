@@ -1,159 +1,40 @@
 import React, { useState } from 'react';
-
-const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState('activity');
-  const [activeSubTab, setActiveSubTab] = useState('pills-mentions');
-
-  // Sample data for demonstration
-  const userData = {
-    name: "Aneeta Shakhya",
-    status: "Active 02 Minutes Ago",
-    coverImage: "assets/images/profile/cover.jpg",
-    profileImage: "assets/images/profile/Profile.jpg",
-    baseInfo: {
-      name: "Aneeta Shakya",
-      gender: "Woman",
-      lookingFor: "Men",
-      maritalStatus: "Single",
-      age: "36",
-      dob: "27-02-1996",
-      address: "Streop Rd, Peosur, Inphodux, USA."
-    },
-    friends: [
-      { id: 1, name: "Jenifer Guido", image: "assets/images/member/01.jpg", active: "1 Day" },
-      { id: 2, name: "Andrea Guido", image: "assets/images/member/02.jpg", active: "2 Day" },
-      { id: 3, name: "Anna hawk", image: "assets/images/member/03.jpg", active: "5 Day" },
-      { id: 4, name: "Andreas Adam", image: "assets/images/member/04.jpg", active: "4 Day" },
-      { id: 5, name: "Alaina T", image: "assets/images/member/05.jpg", active: "1 Day" },
-      { id: 6, name: "Aron Smith", image: "assets/images/member/06.jpg", active: "3 Day" },
-      { id: 7, name: "Helen Gomz", image: "assets/images/member/07.jpg", active: "3 Day" },
-      { id: 8, name: "Andrez jr", image: "assets/images/member/08.jpg", active: "5 Day" },
-      { id: 9, name: "Ladiga Guido", image: "assets/images/member/09.jpg", active: "5 Day" },
-      { id: 10, name: "Andrea Guido", image: "assets/images/member/10.jpg", active: "1 Day" },
-      { id: 11, name: "Jene Aiko", image: "assets/images/member/11.jpg", active: "4 Day" },
-      { id: 12, name: "Jhon Cena", image: "assets/images/member/12.jpg", active: "2 Day" }
-    ],
-    groups: [
-      { id: 1, name: "Active Group A1", image: "assets/images/group/group-page/01.jpg", members: 12 },
-      { id: 2, name: "Active Group A2", image: "assets/images/group/group-page/02.jpg", members: 16 },
-      { id: 3, name: "Active Group A3", image: "assets/images/group/group-page/03.jpg", members: 8 },
-      { id: 4, name: "Active Group A4", image: "assets/images/group/group-page/04.jpg", members: 20 },
-      { id: 5, name: "Active Group A5", image: "assets/images/group/group-page/05.jpg", members: 15 }
-    ],
-    photos: Array.from({ length: 20 }, (_, i) => `assets/images/member/${(i % 20) + 1 < 10 ? '0' + ((i % 20) + 1) : (i % 20) + 1}.jpg`)
-  };
-
-  const renderTabContent = () => {
-    switch (activeTab) {
-      case 'activity':
-        return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
-      case 'profile':
-        return <ProfileTab userData={userData} />;
-      case 'friends':
-        return <FriendsTab friends={userData.friends} />;
-      case 'groups':
-        return <GroupsTab groups={userData.groups} />;
-      case 'photos':
-        return <PhotosTab photos={userData.photos} />;
-      case 'media':
-        return <MediaTab />;
-      default:
-        return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
-    }
-  };
-
-  return (
-    <>
-      {/* Page Header Section */}
-      <section className="page-header-section style-1 bg-pink">
-        <div className="container">
-          <div className="page-header-content">
-            <div className="page-header-inner">
-              <div className="page-title">
-                <h2>Member Single Profile</h2>
-              </div>
-              <ol className="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li className="active">{userData.name}</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Profile Section */}
-      <section className="profile-section padding-tb bg-ash">
-        <div className="container">
-          <div className="section-wrapper">
-            <div className="member-profile">
-              {/* Profile Header */}
-              <ProfileHeader userData={userData} />
-              
-              {/* Profile Navigation */}
-              <div className="profile-details">
-                <nav className="profile-nav">
-                  <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button 
-                      className={`nav-link ${activeTab === 'activity' ? 'active' : ''}`}
-                      onClick={() => setActiveTab('activity')}
-                    >
-                      Activity
-                    </button>
-                    <button 
-                      className={`nav-link ${activeTab === 'profile' ? 'active' : ''}`}
-                      onClick={() => setActiveTab('profile')}
-                    >
-                      Profile
-                    </button>
-                    <button 
-                      className={`nav-link ${activeTab === 'friends' ? 'active' : ''}`}
-                      onClick={() => setActiveTab('friends')}
-                    >
-                      Friends <span className="item-number">{userData.friends.length}</span>
-                    </button>
-                    <button 
-                      className={`nav-link ${activeTab === 'groups' ? 'active' : ''}`}
-                      onClick={() => setActiveTab('groups')}
-                    >
-                      Groups <span className="item-number">{userData.groups.length}</span>
-                    </button>
-                    <button 
-                      className={`nav-link ${activeTab === 'photos' ? 'active' : ''}`}
-                      onClick={() => setActiveTab('photos')}
-                    >
-                      Photos
-                    </button>
-                    <button 
-                      className={`nav-link ${activeTab === 'media' ? 'active' : ''}`}
-                      onClick={() => setActiveTab('media')}
-                    >
-                      Media <span className="item-number">35</span>
-                    </button>
-                    <div className="dropdown">
-                      <a className="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        More
-                      </a>
-                      <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <li><a className="dropdown-item" href="#">Activity</a></li>
-                        <li><a className="dropdown-item" href="#">Privacy</a></li>
-                        <li><a className="dropdown-item" href="#">Block user</a></li>
-                      </ul>
-                    </div>
-                  </div>
-                </nav>
-                
-                {/* Tab Content */}
-                <div className="tab-content" id="nav-tabContent">
-                  {renderTabContent()}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
-  );
-};
+import c1 from '../../assets/images/profile/dp.png';
+import c2 from '../../assets/images/profile/cover.jpg';
+import g1 from '../../assets/images/group/01.jpg';
+import g2 from '../../assets/images/group/02.jpg';
+import g3 from '../../assets/images/group/03.jpg';
+import g4 from '../../assets/images/group/04.jpg';
+import g5 from '../../assets/images/group/05.jpg';
+import m1 from '../../assets/images/member/01.jpg';
+import m2 from '../../assets/images/member/02.jpg';
+import m3 from '../../assets/images/member/03.jpg';
+import m4 from '../../assets/images/member/04.jpg';
+import m5 from '../../assets/images/member/05.jpg';
+import m6 from '../../assets/images/member/06.jpg';
+import m7 from '../../assets/images/member/07.jpg';
+import m8 from '../../assets/images/member/08.jpg';
+import m9 from '../../assets/images/member/09.jpg';
+import m10 from '../../assets/images/member/10.jpg';
+import m11 from '../../assets/images/member/11.jpg';
+import m12 from '../../assets/images/member/12.jpg';
+// Import additional images for widgets
+import w1 from '../../assets/images/widget/01.jpg';
+import w2 from '../../assets/images/widget/02.jpg';
+import w3 from '../../assets/images/widget/03.jpg';
+import w4 from '../../assets/images/widget/04.jpg';
+import w5 from '../../assets/images/widget/05.jpg';
+import w6 from '../../assets/images/widget/06.jpg';
+import w7 from '../../assets/images/widget/07.jpg';
+import w8 from '../../assets/images/widget/08.jpg';
+import w9 from '../../assets/images/widget/09.jpg';
+// Import group member images
+import gm1 from '../../assets/images/group/group-mem/01.png';
+import gm2 from '../../assets/images/group/group-mem/02.png';
+import gm3 from '../../assets/images/group/group-mem/03.png';
+import gm4 from '../../assets/images/group/group-mem/04.png';
+import gm5 from '../../assets/images/group/group-mem/05.png';
+import gm6 from '../../assets/images/group/group-mem/06.png';
 
 // Profile Header Component
 const ProfileHeader = ({ userData }) => {
@@ -266,15 +147,13 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
               </ul>
               
               <div className="tab-content activity-content" id="pills-tabContent">
-                {/* Sub-tab content would go here */}
                 <div className={`tab-pane fade ${activeSubTab === 'pills-mentions' ? 'show active' : ''}`} id="pills-mentions" role="tabpanel">
-                  {/* Post items would be rendered here */}
                   <div className="post-item mb-20">
                     <div className="post-content">
                       <div className="post-author">
                         <div className="post-author-inner">
                           <div className="author-thumb">
-                            <img src="assets/images/profile/dp.png" alt="img" />
+                            <img src={c1} alt="user profile" />
                           </div>
                           <div className="author-details">
                             <h6><a href="#">William Smith</a></h6>
@@ -343,7 +222,6 @@ const ProfileTab = ({ userData }) => {
                 </ul>
               </div>
             </div>
-            {/* Additional profile sections would go here */}
           </article>
         </div>
         
@@ -402,6 +280,8 @@ const FriendsTab = ({ friends }) => {
 
 // Groups Tab Component
 const GroupsTab = ({ groups }) => {
+  const groupMemberImages = [gm1, gm2, gm3, gm4, gm5, gm6];
+  
   return (
     <div className="tab-pane fade" id="groups" role="tabpanel">
       <div className="row">
@@ -413,18 +293,15 @@ const GroupsTab = ({ groups }) => {
                   <div className="group-item lab-item style-1">
                     <div className="lab-inner d-flex flex-wrap align-items-center p-4">
                       <div className="lab-thumb me-md-4 mb-4 mb-md-0">
-                        <img src={group.image} alt="img" />
+                        <img src={group.image} alt="group" />
                       </div>
                       <div className="lab-content">
                         <h4>{group.name}</h4>
                         <p>Collaboratively innovate compelling mindshare after prospective partnerships</p>
                         <ul className="img-stack d-flex">
-                          <li><img src="assets/images/group/group-mem/01.png" alt="member-img" /></li>
-                          <li><img src="assets/images/group/group-mem/02.png" alt="member-img" /></li>
-                          <li><img src="assets/images/group/group-mem/03.png" alt="member-img" /></li>
-                          <li><img src="assets/images/group/group-mem/04.png" alt="member-img" /></li>
-                          <li><img src="assets/images/group/group-mem/05.png" alt="member-img" /></li>
-                          <li><img src="assets/images/group/group-mem/06.png" alt="member-img" /></li>
+                          {groupMemberImages.map((image, i) => (
+                            <li key={i}><img src={image} alt="group member" /></li>
+                          ))}
                           <li className="bg-theme">{group.members}+</li>
                         </ul>
                         <div className="test">
@@ -465,7 +342,7 @@ const PhotosTab = ({ photos }) => {
         {photos.map((photo, index) => (
           <div key={index} className="col">
             <div className="gallery-img">
-              <img src={photo} alt="image" className="rounded" />
+              <img src={photo} alt="gallery" className="rounded" />
             </div>
           </div>
         ))}
@@ -485,7 +362,6 @@ const MediaTab = () => {
         <div className="col-xl-8">
           <article>
             <div className="media-wrapper">
-              {/* Media tab content would go here */}
               <h3>Media Gallery</h3>
               <p>Media content would be displayed here</p>
             </div>
@@ -524,7 +400,6 @@ const SearchWidget = () => {
                 </select>
               </div>
             </div>
-            {/* Additional form fields would go here */}
             <button className="">Find Your Partner</button>
           </form>
         </div>
@@ -534,17 +409,19 @@ const SearchWidget = () => {
 };
 
 const LikeMemberWidget = () => {
+  const widgetImages = [w1, w2, w3, w4, w5, w6, w7, w8, w9];
+  
   return (
     <div className="widget like-member">
       <div className="widget-inner">
         <div className="widget-title"><h5>you may like</h5></div>
         <div className="widget-content">
           <div className="row row-cols-3 row-cols-sm-auto g-3">
-            {Array.from({ length: 9 }, (_, i) => (
+            {widgetImages.map((image, i) => (
               <div key={i} className="col">
                 <div className="image-thumb">
                   <a href="#">
-                    <img src={`assets/images/widget/0${i + 1}.jpg`} alt="img" />
+                    <img src={image} alt="potential match" />
                   </a>
                 </div>
               </div>
@@ -557,6 +434,8 @@ const LikeMemberWidget = () => {
 };
 
 const ActiveGroupWidget = () => {
+  const groupMemberImages = [gm1, gm2, gm3, gm4, gm5, gm6];
+  
   return (
     <div className="widget active-group">
       <div className="widget-inner">
@@ -568,12 +447,9 @@ const ActiveGroupWidget = () => {
                 <h6>Active Group A1</h6>
                 <p>Collaboratively fabricate best breed and applications through visionary</p>
                 <ul className="img-stack d-flex">
-                  <li><img src="assets/images/group/group-mem/01.png" alt="member-img" /></li>
-                  <li><img src="assets/images/group/group-mem/02.png" alt="member-img" /></li>
-                  <li><img src="assets/images/group/group-mem/03.png" alt="member-img" /></li>
-                  <li><img src="assets/images/group/group-mem/04.png" alt="member-img" /></li>
-                  <li><img src="assets/images/group/group-mem/05.png" alt="member-img" /></li>
-                  <li><img src="assets/images/group/group-mem/06.png" alt="member-img" /></li>
+                  {groupMemberImages.map((image, i) => (
+                    <li key={i}><img src={image} alt="group member" /></li>
+                  ))}
                   <li className="bg-theme">12+</li>
                 </ul>
                 <div className="test">
@@ -587,6 +463,163 @@ const ActiveGroupWidget = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+// Main ProfilePage Component
+const ProfilePage = () => {
+  const [activeTab, setActiveTab] = useState('activity');
+  const [activeSubTab, setActiveSubTab] = useState('pills-mentions');
+
+  // Sample data for demonstration - FIXED: swapped coverImage and profileImage
+  const userData = {
+    name: "Aneeta Shakhya",
+    status: "Active 02 Minutes Ago",
+    coverImage: c2, // Fixed: changed from c1 to c2
+    profileImage: c1, // Fixed: changed from c2 to c1
+    baseInfo: {
+      name: "Aneeta Shakya",
+      gender: "Woman",
+      lookingFor: "Men",
+      maritalStatus: "Single",
+      age: "36",
+      dob: "27-02-1996",
+      address: "Streop Rd, Peosur, Inphodux, USA."
+    },
+    friends: [
+      { id: 1, name: "Jenifer Guido", image: m1, active: "1 Day" },
+      { id: 2, name: "Andrea Guido", image: m2, active: "2 Day" },
+      { id: 3, name: "Anna hawk", image: m3, active: "5 Day" },
+      { id: 4, name: "Andreas Adam", image: m4, active: "4 Day" },
+      { id: 5, name: "Alaina T", image: m5, active: "1 Day" },
+      { id: 6, name: "Aron Smith", image:m6, active: "3 Day" },
+      { id: 7, name: "Helen Gomz", image:m7, active: "3 Day" },
+      { id: 8, name: "Andrez jr", image: m8, active: "5 Day" },
+      { id: 9, name: "Ladiga Guido", image: m9, active: "5 Day" },
+      { id: 10, name: "Andrea Guido", image: m10, active: "1 Day" },
+      { id: 11, name: "Jene Aiko", image: m11, active: "4 Day" },
+      { id: 12, name: "Jhon Cena", image: m12, active: "2 Day" }
+    ],
+    groups: [
+      { id: 1, name: "Active Group A1", image: g1, members: 12 },
+      { id: 2, name: "Active Group A2", image: g2, members: 16 },
+      { id: 3, name: "Active Group A3", image: g3, members: 8 },
+      { id: 4, name: "Active Group A4", image: g4, members: 20 },
+      { id: 5, name: "Active Group A5", image: g5, members: 15 }
+    ],
+    // FIXED: Use the actual imported images instead of string paths
+    photos: [m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12]
+  };
+
+  const renderTabContent = () => {
+    switch (activeTab) {
+      case 'activity':
+        return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
+      case 'profile':
+        return <ProfileTab userData={userData} />;
+      case 'friends':
+        return <FriendsTab friends={userData.friends} />;
+      case 'groups':
+        return <GroupsTab groups={userData.groups} />;
+      case 'photos':
+        return <PhotosTab photos={userData.photos} />;
+      case 'media':
+        return <MediaTab />;
+      default:
+        return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
+    }
+  };
+
+  return (
+    <>
+      {/* Page Header Section */}
+      <section className="page-header-section style-1 bg-pink">
+        <div className="container">
+          <div className="page-header-content">
+            <div className="page-header-inner">
+              <div className="page-title">
+                <h2>Member Single Profile</h2>
+              </div>
+              <ol className="breadcrumb">
+                <li><a href="index.html">Home</a></li>
+                <li className="active">{userData.name}</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Profile Section */}
+      <section className="profile-section padding-tb bg-ash">
+        <div className="container">
+          <div className="section-wrapper">
+            <div className="member-profile">
+              {/* Profile Header */}
+              <ProfileHeader userData={userData} />
+              
+              {/* Profile Navigation */}
+              <div className="profile-details">
+                <nav className="profile-nav">
+                  <div className="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button 
+                      className={`nav-link ${activeTab === 'activity' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('activity')}
+                    >
+                      Activity
+                    </button>
+                    <button 
+                      className={`nav-link ${activeTab === 'profile' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('profile')}
+                    >
+                      Profile
+                    </button>
+                    <button 
+                      className={`nav-link ${activeTab === 'friends' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('friends')}
+                    >
+                      Friends <span className="item-number">{userData.friends.length}</span>
+                    </button>
+                    <button 
+                      className={`nav-link ${activeTab === 'groups' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('groups')}
+                    >
+                      Groups <span className="item-number">{userData.groups.length}</span>
+                    </button>
+                    <button 
+                      className={`nav-link ${activeTab === 'photos' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('photos')}
+                    >
+                      Photos
+                    </button>
+                    <button 
+                      className={`nav-link ${activeTab === 'media' ? 'active' : ''}`}
+                      onClick={() => setActiveTab('media')}
+                    >
+                      Media <span className="item-number">35</span>
+                    </button>
+                    <div className="dropdown">
+                      <a className="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        More
+                      </a>
+                      <ul className="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <li><a className="dropdown-item" href="#">Activity</a></li>
+                        <li><a className="dropdown-item" href="#">Privacy</a></li>
+                        <li><a className="dropdown-item" href="#">Block user</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+                
+                {/* Tab Content */}
+                <div className="tab-content" id="nav-tabContent">
+                  {renderTabContent()}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

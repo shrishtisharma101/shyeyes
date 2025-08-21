@@ -97,55 +97,58 @@
 
 
 
-    /* Heart Animation Styles */
-    #hearts {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      pointer-events: none;
-      z-index: 1;
-    }
+   /* ------------------------- */
+/* Heart Animation Styles    */
+/* ------------------------- */
+#hearts {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;       /* full screen */
+  pointer-events: none;
+  z-index: 0;         /* behind form */
+}
  
-    .heart {
-      position: absolute;
-      bottom: 0;
-      width: 20px;
-      height: 20px;
-      background-color: #f95872;
-      transform: rotate(45deg);
-      animation: floatUp 7s linear infinite;
-      opacity: 0.8;
-    }
+.heart {
+  position: absolute;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #eb5a75;
+  transform: rotate(45deg);
+  animation: floatUp 7s linear infinite;
+  opacity: 0.8;
+}
  
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background-color: #f95872;
-      border-radius: 50%;
-    }
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #eb5a75;
+  border-radius: 50%;
+}
  
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
+.heart::before {
+  top: -10px;
+  left: 0;
+}
  
-    .heart::after {
-      left: -10px;
-      top: 0;
-    }
+.heart::after {
+  left: -10px;
+  top: 0;
+}
  
-    @keyframes floatUp {
-      0% {
-        transform: translateY(0) rotate(45deg);
-        opacity: 1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(45deg);
-        opacity: 0;
-      }
-    }
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(45deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(45deg);
+    opacity: 0;
+  }
+}
 

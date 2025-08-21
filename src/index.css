@@ -7394,3 +7394,19 @@ textarea::placeholder {
   }
 }
 
+
+/* Default hidden on mobile */
+.menu-area {
+  display: none;
+}
+
+.menu-area.active {
+  display: block;
+}
+
+/* Desktop view */
+@media (min-width: 992px) {
+  .menu-area {
+    display: flex !important;
+  }
+}
