@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Register.css';
 import { Call, Email, LocationCity, Lock, Person, Visibility, VisibilityOff } from '@mui/icons-material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 const RegisterForm = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     firstname: '',
     lastname: '',
@@ -12,9 +15,10 @@ const RegisterForm = () => {
     password: '',
     confirm_password: ''
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,45 +36,81 @@ const RegisterForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form validation and submission logic here
-    console.log('Form submitted:', formData);
+
+    if (formData.password !== formData.confirm_password) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const response = await fetch("https://bitmaxtest.com/shyeyes/api/register/step1", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          
+        },
+        body: JSON.stringify({
+          f_name: formData.firstname,
+          l_name: formData.lastname,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.status) {
+        alert(data.message);
+        // Save user_id in localStorage or context for next step
+        localStorage.setItem("user_id", data.user_id);
+        navigate("/nextstep");
+      } else {
+        alert(data.message || "Something went wrong!");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Server error. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
   };
+
   useEffect(() => {
     const heartContainer = document.getElementById("abcdhearts");
-
     const interval = setInterval(() => {
       const heart = document.createElement("div");
       heart.className = "heart";
       heart.style.left = Math.random() * 100 + "%";
       heart.style.animationDuration = Math.random() * 5 + 3 + "s";
       heartContainer.appendChild(heart);
-
       setTimeout(() => heart.remove(), 8000);
     }, 500);
 
     return () => clearInterval(interval);
   }, []);
+
   return (
     <>
-  
-    <section class="page-header-section style-1 bg-pink">
-        <div class="container">
-            <div class="page-header-content">
-                <div class="page-header-inner">
-                    <div class="page-title">
-                        <h2>Shy-Eyes Register Page</h2>
-                    </div>
-                    <ol class="breadcrumb">
-                        <li><a href="/">Home</a></li>
-                        <li class="active">Register</li>
-                    </ol>
-                </div>
+      <section className="page-header-section style-1 bg-pink">
+        <div className="container">
+          <div className="page-header-content">
+            <div className="page-header-inner">
+              <div className="page-title">
+                <h2>Shy-Eyes Register Page</h2>
+              </div>
+              <ol className="breadcrumb">
+                <li><a href="/">Home</a></li>
+                <li className="active">Register</li>
+              </ol>
             </div>
+          </div>
         </div>
-    </section>
-    
+      </section>
+
       <div className="signup-container">
         <h2>REGISTER</h2>
         <form className="account-form" onSubmit={handleSubmit}>
@@ -168,18 +208,17 @@ const RegisterForm = () => {
             </i>
           </div>
           
-          <Link to="/nextstep" style={{textDecoration: 'none'}}>
-            <button type="submit" className="signup-btn">Next</button>
-          </Link>
+          <button type="submit" className="signup-btn" disabled={loading}>
+            {loading ? "Please wait..." : "Next"}
+          </button>
 
           <div className="login-link">
             Already have an account? <Link to="/login" style={{color: '#e43059'}}>Login</Link>
           </div>
         </form>
-        
       </div>
-     <div className="heart-container" id="abcdhearts"></div>
-     </>
+      <div className="heart-container" id="abcdhearts"></div>
+    </>
   );
 };
 

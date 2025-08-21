@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import c1 from '../../assets/images/profile/dp.png';
 import c2 from '../../assets/images/profile/cover.jpg';
 import g1 from '../../assets/images/group/01.jpg';
@@ -37,11 +37,12 @@ import gm5 from '../../assets/images/group/group-mem/05.png';
 import gm6 from '../../assets/images/group/group-mem/06.png';
 
 // Profile Header Component
-const ProfileHeader = ({ userData }) => {
+const ProfileHeader = ({userData}) => {
+console.log("userData in ProfileHeader", userData);
   return (
     <div className="profile-item">
       <div className="profile-cover">
-        <img src={userData.coverImage} alt="cover-pic" />
+        <img src={userData?.image_url} alt="cover-pic" />
         <div className="edit-photo custom-upload">
           <div className="file-btn"><i className="icofont-camera"></i>Edit Photo</div>
           <input type="file" />
@@ -49,7 +50,7 @@ const ProfileHeader = ({ userData }) => {
       </div>
       <div className="profile-information">
         <div className="profile-pic">
-          <img src={userData.profileImage} alt="DP" />
+          <img src={userData?.image_url} alt="DP" />
           <div className="custom-upload">
             <div className="file-btn">
               <span className="d-none d-lg-inline-block"><i className="icofont-camera"></i>Edit</span>
@@ -59,7 +60,7 @@ const ProfileHeader = ({ userData }) => {
           </div>
         </div>
         <div className="profile-name">
-          <h4>{userData.name}</h4>
+          <h4>{userData?.email}</h4>
           <p>{userData.status}</p>
         </div>
         <ul className="profile-contact">
@@ -202,7 +203,8 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
 };
 
 // Profile Tab Component
-const ProfileTab = ({ userData }) => {
+const ProfileTab = ({ userData :profile }) => {
+  console.log("new data",userData)
   return (
     <div className="tab-pane fade" id="profile" role="tabpanel">
       <div className="row">
@@ -212,8 +214,8 @@ const ProfileTab = ({ userData }) => {
               <div className="info-card-title"><h6>Base Info</h6></div>
               <div className="info-card-content">
                 <ul className="info-list">
-                  <li><p className="info-name">Name</p><p className="info-details">{userData.baseInfo.name}</p></li>
-                  <li><p className="info-name">I'm a</p><p className="info-details">{userData.baseInfo.gender}</p></li>
+                  <li><p className="info-name">Name</p><p className="info-details">{userData?.f_name}</p></li>
+                  <li><p className="info-name">I'm a</p><p className="info-details">{userData?.gender}</p></li>
                   <li><p className="info-name">Looking for a</p><p className="info-details">{userData.baseInfo.lookingFor}</p></li>
                   <li><p className="info-name">Marital Status</p><p className="info-details">{userData.baseInfo.maritalStatus}</p></li>
                   <li><p className="info-name">Age</p><p className="info-details">{userData.baseInfo.age}</p></li>

@@ -15,18 +15,21 @@ export default function NextStep() {
   });
   const [about, setAbout] = useState("");
   const [profilePic, setProfilePic] = useState(null);
+  const [file, setFile] = useState(null); // ✅ added back
 
   const dobRef = useRef(null);
   const fileInputRef = useRef(null);
-  const navigate = useNavigate(); // ✅ React Router hook
+  const navigate = useNavigate();
 
   const handleDobChange = (e) => {
     const selectedDate = e.target.value;
     setDob(selectedDate);
+
     const birthDate = new Date(selectedDate);
     const today = new Date();
     let calculatedAge = today.getFullYear() - birthDate.getFullYear();
     const monthDiff = today.getMonth() - birthDate.getMonth();
+
     if (
       monthDiff < 0 ||
       (monthDiff === 0 && today.getDate() < birthDate.getDate())
@@ -37,31 +40,136 @@ export default function NextStep() {
   };
 
   const handleProfileUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
+    const uploadedFile = e.target.files[0];
+    if (uploadedFile) {
+      setFile(uploadedFile); // ✅ keep file for API
       const reader = new FileReader();
       reader.onload = () => {
         setProfilePic(reader.result);
       };
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(uploadedFile);
     }
   };
 
-  const handleSignup = () => {
-    // ⚡ Here you can send form data to your backend API if needed
-    // For now, just redirect after "signup"
-    console.log({
-      dob,
-      age,
-      gender,
-      location,
-      about,
-      profilePic
+  // const handleSignup = async () => {
+  //   try {
+  //     const userId = localStorage.getItem("user_id");
+  //     if (!userId) {
+  //       alert("User ID not found! Please complete Step 1.");
+  //       return;
+  //     }
+
+  //     // ✅ Convert DOB to "d F Y" format
+  //     const birthDate = new Date(dob);
+  //     const formattedDob = birthDate.toLocaleDateString("en-GB", {
+  //       day: "2-digit",
+  //       month: "long",
+  //       year: "numeric",
+  //     });
+
+  //     const formData = new FormData();
+  //     formData.append("user_id", userId);
+  //     if (file !== null) formData.append("img", file); // ✅ safe check
+  //     formData.append("dob", formattedDob);
+  //     formData.append("age", age);
+  //     formData.append("gender", gender);
+  //     formData.append(
+  //       "location",
+  //       `${location.street}, ${location.city}, ${location.state}, ${location.country}`
+  //     );
+  //     formData.append("about", about);
+
+  //     const response = await fetch(
+  //       "https://bitmaxtest.com/shyeyes/api/register/step2",
+  //       {
+  //         method: "POST",
+  //         body: formData,
+  //       }
+  //     );
+
+  //     const data = await response.json();
+  //     console.log("API Response:", data);
+
+  //     if (response.ok && data.status) {
+  //       alert(data.message);
+  //       localStorage.setItem("user", JSON.stringify(data.user));
+  //       navigate("/login");
+  //     } else {
+  //       alert(data.message || "Step 2 failed!");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //     alert("Server error. Please try again later.");
+  //   }
+  // };
+const handleSignup = async (e) => {
+  if (e) e.preventDefault();
+
+  try {
+    const userId = localStorage.getItem("user_id");
+    const token = localStorage.getItem("token"); // Step1 must store this
+
+    if (!userId || !token) {
+      alert("Missing User ID or Token. Please complete Step 1 first.");
+      return;
+    }
+
+    if (file && file.size > 2 * 1024 * 1024) {
+      alert("Profile image must be less than 2MB.");
+      return;
+    }
+
+    // Format DOB -> d F Y
+    const birthDate = new Date(dob);
+    const formattedDob = `${birthDate.getDate().toString().padStart(2, "0")} ${birthDate.toLocaleString("en-GB", { month: "long" })} ${birthDate.getFullYear()}`;
+
+    const formData = new FormData();
+    formData.append("user_id", userId);
+    if (file) formData.append("img", file);
+    formData.append("dob", formattedDob);
+    formData.append("age", age);
+    formData.append("gender", gender);
+
+    const locationString = [location.street, location.city, location.state, location.country]
+      .filter(Boolean)
+      .join(", ");
+    formData.append("location", locationString);
+    formData.append("about", about);
+
+    const response = await fetch("https://bitmaxtest.com/shyeyes/api/register/step2", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
     });
 
-    // ✅ redirect to login
-    navigate("/login");
-  };
+    let data = {};
+    try {
+      data = await response.json();
+    } catch {
+      console.error("Non-JSON response from API");
+    }
+
+    console.log("API Response:", data);
+
+    if (response.ok && data.status) {
+      alert(data.message);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/login");
+    } else {
+      if (response.status === 422 && data.errors) {
+        alert("Validation error: " + JSON.stringify(data.errors));
+      } else {
+        alert(data.message || "Step 2 failed!");
+      }
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    alert("Server error. Please try again later.");
+  }
+};
+
 
   return (
     <div className="personal-background">
@@ -134,10 +242,10 @@ export default function NextStep() {
               <input
                 type="radio"
                 name="gender"
-                value="transgender"
-                checked={gender === "transgender"}
+                value="other"
+                checked={gender === "other"}
                 onChange={(e) => setGender(e.target.value)}
-              /> Transgender
+              /> Other
             </label>
           </div>
 
@@ -162,7 +270,9 @@ export default function NextStep() {
               type="text"
               placeholder="State"
               value={location.state}
-              onChange={(e) => setLocation({ ...location, state: e.target.value })}
+              onChange={(e) =>
+                setLocation({ ...location, state: e.target.value })
+              }
             />
             <input
               type="text"
