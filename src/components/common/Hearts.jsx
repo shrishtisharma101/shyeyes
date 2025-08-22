@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import './heart.css';
+import './Heart.css';
  
 const HeartsBackground = () => {
   useEffect(() => {
