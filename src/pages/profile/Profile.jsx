@@ -1,54 +1,62 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import { FaPhoneAlt, FaCommentDots, FaVideo } from "react-icons/fa";
 import UserCard from "./UserCard";
-import Im1 from "../../assets/images/alexandru-zdrobau-BGz8vO3pK8k-unsplash.jpg";
 
 const Profile = () => {
   const navigate = useNavigate();
   const trackRef = useRef(null);
 
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const handleClick = () => {
-  window.location.href = "/chat";
-}
+  // ✅ Redirect to chat
+  const handleClick = () => {
+    window.location.href = "/chat";
+  };
 
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: "Jimmy Perez",
-      age: "23 Years Old",
-      image: Im1,
-      online: true,
-    },
-    {
-      id: 2,
-      name: "Vanshi Chudhary",
-      age: "21 Years Old",
-      image: Im1,
-      online: true,
-    },
-    {
-      id: 3,
-      name: "Amit Kumar",
-      age: "21 Years Old",
-      image: Im1,
-      online: true,
-    },
-    {
-      id: 4,
-      name: "Sakshi Sharma",
-      age: "21 Years Old",
-      image: Im1,
-      online: true,
-    },
-  ]);
+  // ✅ Fetch active users from API
+  const fetchUsers = async () => {
+    try {
+      const token = localStorage.getItem("token"); // use token if available
+      const res = await fetch("https://chat.bitmaxtest.com/admin/api/active-users", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `Bearer ${token}` }),
+        },
+      });
 
-  // Carousel functionality
+      const data = await res.json();
+
+      if (res.ok && data.status) {
+        // Map API users → match UserCard props
+        const formattedUsers = data.data.map((user) => ({
+          id: user.id,
+          name: user.name,
+          age: user.age || "21 Years Old", // API doesn’t provide age → fallback
+          image: user.image || "http://localhost:8000/default.jpg",
+          online: true,
+        }));
+        setUsers(formattedUsers);
+      } else {
+        console.error("Failed to fetch:", data.message);
+      }
+    } catch (err) {
+      console.error("Fetch error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+
+  // ✅ Carousel auto-slide
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return;
+    if (!track || users.length === 0) return;
 
     const cardWidth = track.children[0]?.offsetWidth + 20 || 320;
 
@@ -62,21 +70,11 @@ const handleClick = () => {
       }, 500);
     };
 
-    const moveRight = () => {
-      track.insertBefore(track.lastElementChild, track.firstElementChild);
-      track.style.transition = "none";
-      track.style.transform = `translateX(-${cardWidth}px)`;
-      requestAnimationFrame(() => {
-        track.style.transition = "transform 0.5s ease";
-        track.style.transform = "translateX(0)";
-      });
-    };
-
     const interval = setInterval(moveLeft, 4000);
     return () => clearInterval(interval);
-  }, []);
+  }, [users]);
 
-  // SweetAlert helper
+  // ✅ SweetAlert for subscription
   const showSubscriptionAlert = (feature) => {
     Swal.fire({
       title: "Subscription Required",
@@ -103,7 +101,7 @@ const handleClick = () => {
 
   return (
     <div className="profile-page">
-      {/* Page Header Section */}
+      {/* Page Header */}
       <section className="page-header-section style-1 bg-pink">
         <div className="container">
           <div className="page-header-content">
@@ -112,9 +110,7 @@ const handleClick = () => {
                 <h2>Some Matches To Your Profile</h2>
               </div>
               <ol className="breadcrumb">
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
+                <li><Link to="/">Home</Link></li>
                 <li className="active">Profiles</li>
               </ol>
             </div>
@@ -122,27 +118,55 @@ const handleClick = () => {
         </div>
       </section>
 
-      {/* Profile Carousel */}
+      {/* Carousel Section */}
       <section className="profile-section">
-        <div className="carousel-container">
-          <button className="arrow-btn" onClick={() => trackRef.current && trackRef.current.lastElementChild && trackRef.current.insertBefore(trackRef.current.lastElementChild, trackRef.current.firstElementChild)}>&#10094;</button>
-          <button className="arrow-btn" onClick={() => trackRef.current && trackRef.current.firstElementChild && trackRef.current.appendChild(trackRef.current.firstElementChild)}>&#10095;</button>
+        {loading ? (
+          <p className="text-center">Loading members...</p>
+        ) : users.length === 0 ? (
+          <p className="text-center">No members found</p>
+        ) : (
+          <div className="carousel-container">
+            {/* Manual arrows */}
+            <button
+              className="arrow-btn"
+              onClick={() =>
+                trackRef.current &&
+                trackRef.current.lastElementChild &&
+                trackRef.current.insertBefore(
+                  trackRef.current.lastElementChild,
+                  trackRef.current.firstElementChild
+                )
+              }
+            >
+              &#10094;
+            </button>
+            <button
+              className="arrow-btn"
+              onClick={() =>
+                trackRef.current &&
+                trackRef.current.firstElementChild &&
+                trackRef.current.appendChild(trackRef.current.firstElementChild)
+              }
+            >
+              &#10095;
+            </button>
 
-          <div className="card-container" ref={trackRef}>
-            {users.map((user) => (
-              <UserCard
-                key={user.id}
-                user={user}
-                onChatClick={handleClick}
-                onRequest={handleRequest}
-                onShowAlert={showSubscriptionAlert}
-              />
-            ))}
+            <div className="card-container" ref={trackRef}>
+              {users.map((user) => (
+                <UserCard
+                  key={user.id}
+                  user={user}
+                  onChatClick={handleClick}
+                  onRequest={handleRequest}
+                  onShowAlert={showSubscriptionAlert}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Floating Lottie Animation */}
+      {/* Floating Animation */}
       <dotlottie-wc
         src="https://lottie.host/ee468a01-9f4c-4ccc-8c32-43eda3b6d49b/a94TBYW5n7.lottie"
         style={{
@@ -160,6 +184,5 @@ const handleClick = () => {
     </div>
   );
 };
-
 
 export default Profile;

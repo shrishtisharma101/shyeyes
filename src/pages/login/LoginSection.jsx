@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 const LoginSection = () => {
   // State
@@ -44,7 +45,7 @@ const LoginSection = () => {
     if (!agreeToTerms) return;
 
     try {
-      const res = await fetch("https://bitmaxtest.com/shyeyes/api/login", {
+      const res = await fetch("https://chat.bitmaxtest.com/admin/api/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -74,7 +75,7 @@ const LoginSection = () => {
           confirmButtonColor: "#df314d",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/profile";
+            window.location.href = "/";
           }
         });
       } else {
@@ -199,9 +200,9 @@ const LoginSection = () => {
             {/* Bottom Section */}
             <div className="account-bottom">
               <span className="d-block cate pt-10">
-                Don't Have any Account? <a href="register.html">Register</a>
+                Don't Have any Account? <Link to="/register">Register</Link>
               </span>
-              <span className="or"><span>or</span></span>
+              {/* <span className="or"><span>or</span></span>
               <h5 className="subtitle">Login With Social Media</h5>
               <ul className="social-media social-color lab-ul d-flex justify-content-center">
                 <li><a href="#" className="facebook"><i className="icofont-facebook"></i></a></li>
@@ -209,7 +210,7 @@ const LoginSection = () => {
                 <li><a href="#" className="linkedin"><i className="icofont-linkedin"></i></a></li>
                 <li><a href="#" className="instagram"><i className="icofont-instagram"></i></a></li>
                 <li><a href="#" className="pinterest"><i className="icofont-pinterest"></i></a></li>
-              </ul>
+              </ul> */}
             </div>
           </div>
         </div>

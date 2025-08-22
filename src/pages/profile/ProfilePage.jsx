@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import c1 from '../../assets/images/profile/dp.png';
 import c2 from '../../assets/images/profile/cover.jpg';
 import g1 from '../../assets/images/group/01.jpg';
@@ -36,13 +37,27 @@ import gm4 from '../../assets/images/group/group-mem/04.png';
 import gm5 from '../../assets/images/group/group-mem/05.png';
 import gm6 from '../../assets/images/group/group-mem/06.png';
 
+// Constants
+const IMG_BASE_URL = "https://chat.bitmaxtest.com/admin/public/uploads/";
+
 // Profile Header Component
-const ProfileHeader = ({userData}) => {
-console.log("userData in ProfileHeader", userData);
+const ProfileHeader = ({ userData, onEditProfile }) => {
+  const profileImage = userData?.image_url
+    ? `${IMG_BASE_URL}${userData.image_url}`
+    : c1;
+
+  const coverImage = userData?.cover_image
+    ? `${IMG_BASE_URL}${userData.cover_image}`
+    : c2;
+
   return (
     <div className="profile-item">
       <div className="profile-cover">
-        <img src={userData?.image_url} alt="cover-pic" />
+        <img
+          src={coverImage}
+          alt={userData?.full_name || "profile cover"}
+          className="w-100 h-100 object-cover"
+        />
         <div className="edit-photo custom-upload">
           <div className="file-btn"><i className="icofont-camera"></i>Edit Photo</div>
           <input type="file" />
@@ -50,18 +65,31 @@ console.log("userData in ProfileHeader", userData);
       </div>
       <div className="profile-information">
         <div className="profile-pic">
-          <img src={userData?.image_url} alt="DP" />
+          <img
+            src={profileImage}
+            alt="Profile"
+          />
           <div className="custom-upload">
             <div className="file-btn">
-              <span className="d-none d-lg-inline-block"><i className="icofont-camera"></i>Edit</span>
-              <span className="d-lg-none mr-0"><i className="icofont-plus"></i></span>
+              <span className="d-none d-lg-inline-block">
+                <i className="icofont-camera"></i>Edit
+              </span>
+              <span className="d-lg-none mr-0">
+                <i className="icofont-plus"></i>
+              </span>
             </div>
             <input type="file" />
           </div>
         </div>
         <div className="profile-name">
-          <h4>{userData?.email}</h4>
-          <p>{userData.status}</p>
+          <h4>{userData?.f_name || userData?.email}</h4>
+          <p>{userData?.status || "Offline"}</p>
+          <Link to="/edit-profile" state={{ userData }}>
+            <button className="btn btn-primary mt-2">
+              <i className="icofont-edit mr-2"></i>Edit Profile
+            </button>
+          </Link>
+
         </div>
         <ul className="profile-contact">
           <li>
@@ -98,7 +126,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
             <div className="activity-tab">
               <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
                 <li className="nav-item" role="presentation">
-                  <button 
+                  <button
                     className={`nav-link ${activeSubTab === 'pills-personal' ? 'active' : ''}`}
                     onClick={() => setActiveSubTab('pills-personal')}
                   >
@@ -106,7 +134,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
-                  <button 
+                  <button
                     className={`nav-link ${activeSubTab === 'pills-mentions' ? 'active' : ''}`}
                     onClick={() => setActiveSubTab('pills-mentions')}
                   >
@@ -114,7 +142,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
-                  <button 
+                  <button
                     className={`nav-link ${activeSubTab === 'pills-favorites' ? 'active' : ''}`}
                     onClick={() => setActiveSubTab('pills-favorites')}
                   >
@@ -122,7 +150,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
-                  <button 
+                  <button
                     className={`nav-link ${activeSubTab === 'pills-friends' ? 'active' : ''}`}
                     onClick={() => setActiveSubTab('pills-friends')}
                   >
@@ -130,7 +158,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
                   </button>
                 </li>
                 <li className="nav-item" role="presentation">
-                  <button 
+                  <button
                     className={`nav-link ${activeSubTab === 'pills-groups' ? 'active' : ''}`}
                     onClick={() => setActiveSubTab('pills-groups')}
                   >
@@ -146,7 +174,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
                   </select>
                 </li>
               </ul>
-              
+
               <div className="tab-content activity-content" id="pills-tabContent">
                 <div className={`tab-pane fade ${activeSubTab === 'pills-mentions' ? 'show active' : ''}`} id="pills-mentions" role="tabpanel">
                   <div className="post-item mb-20">
@@ -188,7 +216,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
             </div>
           </article>
         </div>
-        
+
         {/* Sidebar */}
         <div className="col-xl-4">
           <aside className="mt-5 mt-xl-0">
@@ -203,8 +231,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
 };
 
 // Profile Tab Component
-const ProfileTab = ({ userData :profile }) => {
-  console.log("new data",userData)
+const ProfileTab = ({ userData }) => {
   return (
     <div className="tab-pane fade" id="profile" role="tabpanel">
       <div className="row">
@@ -214,19 +241,19 @@ const ProfileTab = ({ userData :profile }) => {
               <div className="info-card-title"><h6>Base Info</h6></div>
               <div className="info-card-content">
                 <ul className="info-list">
-                  <li><p className="info-name">Name</p><p className="info-details">{userData?.f_name}</p></li>
-                  <li><p className="info-name">I'm a</p><p className="info-details">{userData?.gender}</p></li>
-                  <li><p className="info-name">Looking for a</p><p className="info-details">{userData.baseInfo.lookingFor}</p></li>
-                  <li><p className="info-name">Marital Status</p><p className="info-details">{userData.baseInfo.maritalStatus}</p></li>
-                  <li><p className="info-name">Age</p><p className="info-details">{userData.baseInfo.age}</p></li>
-                  <li><p className="info-name">Date of Birth</p><p className="info-details">{userData.baseInfo.dob}</p></li>
-                  <li><p className="info-name">Address</p><p className="info-details">{userData.baseInfo.address}</p></li>
+                  <li><p className="info-name">Name</p><p className="info-details">{userData?.f_name || 'N/A'}</p></li>
+                  <li><p className="info-name">I'm a</p><p className="info-details">{userData?.gender || 'N/A'}</p></li>
+                  <li><p className="info-name">Looking for a</p><p className="info-details">{userData?.looking_for || 'N/A'}</p></li>
+                  <li><p className="info-name">Marital Status</p><p className="info-details">{userData?.marital_status || 'N/A'}</p></li>
+                  <li><p className="info-name">Age</p><p className="info-details">{userData?.age || 'N/A'}</p></li>
+                  <li><p className="info-name">Date of Birth</p><p className="info-details">{userData?.dob || 'N/A'}</p></li>
+                  <li><p className="info-name">Address</p><p className="info-details">{userData?.address || 'N/A'}</p></li>
                 </ul>
               </div>
             </div>
           </article>
         </div>
-        
+
         {/* Sidebar */}
         <div className="col-xl-4">
           <aside className="mt-5 mt-xl-0">
@@ -266,7 +293,7 @@ const FriendsTab = ({ friends }) => {
             </div>
           </article>
         </div>
-        
+
         {/* Sidebar */}
         <div className="col-xl-4">
           <aside className="mt-5 mt-xl-0">
@@ -283,7 +310,7 @@ const FriendsTab = ({ friends }) => {
 // Groups Tab Component
 const GroupsTab = ({ groups }) => {
   const groupMemberImages = [gm1, gm2, gm3, gm4, gm5, gm6];
-  
+
   return (
     <div className="tab-pane fade" id="groups" role="tabpanel">
       <div className="row">
@@ -319,7 +346,7 @@ const GroupsTab = ({ groups }) => {
             </div>
           </article>
         </div>
-        
+
         {/* Sidebar */}
         <div className="col-xl-4">
           <aside className="mt-5 mt-xl-0">
@@ -369,7 +396,7 @@ const MediaTab = () => {
             </div>
           </article>
         </div>
-        
+
         {/* Sidebar */}
         <div className="col-xl-4">
           <aside className="mt-5 mt-xl-0">
@@ -412,7 +439,7 @@ const SearchWidget = () => {
 
 const LikeMemberWidget = () => {
   const widgetImages = [w1, w2, w3, w4, w5, w6, w7, w8, w9];
-  
+
   return (
     <div className="widget like-member">
       <div className="widget-inner">
@@ -437,7 +464,7 @@ const LikeMemberWidget = () => {
 
 const ActiveGroupWidget = () => {
   const groupMemberImages = [gm1, gm2, gm3, gm4, gm5, gm6];
-  
+
   return (
     <div className="widget active-group">
       <div className="widget-inner">
@@ -470,32 +497,24 @@ const ActiveGroupWidget = () => {
 
 // Main ProfilePage Component
 const ProfilePage = () => {
-  const [activeTab, setActiveTab] = useState('activity');
-  const [activeSubTab, setActiveSubTab] = useState('pills-mentions');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const passedData = location.state?.userData;
 
-  // Sample data for demonstration - FIXED: swapped coverImage and profileImage
-  const userData = {
-    name: "Aneeta Shakhya",
-    status: "Active 02 Minutes Ago",
-    coverImage: c2, // Fixed: changed from c1 to c2
-    profileImage: c1, // Fixed: changed from c2 to c1
-    baseInfo: {
-      name: "Aneeta Shakya",
-      gender: "Woman",
-      lookingFor: "Men",
-      maritalStatus: "Single",
-      age: "36",
-      dob: "27-02-1996",
-      address: "Streop Rd, Peosur, Inphodux, USA."
-    },
+  const [activeTab, setActiveTab] = useState("activity");
+  const [activeSubTab, setActiveSubTab] = useState("pills-mentions");
+
+  // Memoize user data to prevent unnecessary re-renders
+  const userData = useMemo(() => ({
+    ...passedData,
     friends: [
       { id: 1, name: "Jenifer Guido", image: m1, active: "1 Day" },
       { id: 2, name: "Andrea Guido", image: m2, active: "2 Day" },
       { id: 3, name: "Anna hawk", image: m3, active: "5 Day" },
       { id: 4, name: "Andreas Adam", image: m4, active: "4 Day" },
       { id: 5, name: "Alaina T", image: m5, active: "1 Day" },
-      { id: 6, name: "Aron Smith", image:m6, active: "3 Day" },
-      { id: 7, name: "Helen Gomz", image:m7, active: "3 Day" },
+      { id: 6, name: "Aron Smith", image: m6, active: "3 Day" },
+      { id: 7, name: "Helen Gomz", image: m7, active: "3 Day" },
       { id: 8, name: "Andrez jr", image: m8, active: "5 Day" },
       { id: 9, name: "Ladiga Guido", image: m9, active: "5 Day" },
       { id: 10, name: "Andrea Guido", image: m10, active: "1 Day" },
@@ -509,11 +528,15 @@ const ProfilePage = () => {
       { id: 4, name: "Active Group A4", image: g4, members: 20 },
       { id: 5, name: "Active Group A5", image: g5, members: 15 }
     ],
-    // FIXED: Use the actual imported images instead of string paths
     photos: [m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12]
-  };
+  }), [passedData]);
 
-  const renderTabContent = () => {
+  // Handle edit profile navigation
+  const handleEditProfile = useCallback(() => {
+    navigate('/edit-profile', { state: { userData } });
+  }, [navigate, userData]);
+
+  const renderTabContent = useCallback(() => {
     switch (activeTab) {
       case 'activity':
         return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
@@ -530,7 +553,7 @@ const ProfilePage = () => {
       default:
         return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
     }
-  };
+  }, [activeTab, activeSubTab, userData]);
 
   return (
     <>
@@ -544,7 +567,7 @@ const ProfilePage = () => {
               </div>
               <ol className="breadcrumb">
                 <li><a href="index.html">Home</a></li>
-                <li className="active">{userData.name}</li>
+                <li className="active">{userData.f_name || userData.email}</li>
               </ol>
             </div>
           </div>
@@ -557,43 +580,43 @@ const ProfilePage = () => {
           <div className="section-wrapper">
             <div className="member-profile">
               {/* Profile Header */}
-              <ProfileHeader userData={userData} />
-              
+              <ProfileHeader userData={userData} onEditProfile={handleEditProfile} />
+
               {/* Profile Navigation */}
               <div className="profile-details">
                 <nav className="profile-nav">
                   <div className="nav nav-tabs" id="nav-tab" role="tablist">
-                    <button 
+                    <button
                       className={`nav-link ${activeTab === 'activity' ? 'active' : ''}`}
                       onClick={() => setActiveTab('activity')}
                     >
                       Activity
                     </button>
-                    <button 
+                    <button
                       className={`nav-link ${activeTab === 'profile' ? 'active' : ''}`}
                       onClick={() => setActiveTab('profile')}
                     >
                       Profile
                     </button>
-                    <button 
+                    <button
                       className={`nav-link ${activeTab === 'friends' ? 'active' : ''}`}
                       onClick={() => setActiveTab('friends')}
                     >
                       Friends <span className="item-number">{userData.friends.length}</span>
                     </button>
-                    <button 
+                    <button
                       className={`nav-link ${activeTab === 'groups' ? 'active' : ''}`}
                       onClick={() => setActiveTab('groups')}
                     >
                       Groups <span className="item-number">{userData.groups.length}</span>
                     </button>
-                    <button 
+                    <button
                       className={`nav-link ${activeTab === 'photos' ? 'active' : ''}`}
                       onClick={() => setActiveTab('photos')}
                     >
                       Photos
                     </button>
-                    <button 
+                    <button
                       className={`nav-link ${activeTab === 'media' ? 'active' : ''}`}
                       onClick={() => setActiveTab('media')}
                     >
@@ -611,7 +634,7 @@ const ProfilePage = () => {
                     </div>
                   </div>
                 </nav>
-                
+
                 {/* Tab Content */}
                 <div className="tab-content" id="nav-tabContent">
                   {renderTabContent()}

@@ -46,11 +46,11 @@ const RegisterForm = () => {
 
     setLoading(true);
     try {
-      const response = await fetch("https://bitmaxtest.com/shyeyes/api/register/step1", {
+      const response = await fetch("https://chat.bitmaxtest.com/admin/api/register/step1", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          
+          token: localStorage.getItem("token")
         },
         body: JSON.stringify({
           f_name: formData.firstname,
