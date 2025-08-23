@@ -1,4 +1,11 @@
 import React from 'react';
+// Sare images import karo
+import img1 from '../../assets/images/group/group-mem/01.png';
+import img2 from '../../assets/images/group/group-mem/02.png';
+import img3 from '../../assets/images/group/group-mem/03.png';
+import img4 from '../../assets/images/group/group-mem/04.png';
+import img5 from '../../assets/images/group/group-mem/05.png';
+import img6 from '../../assets/images/group/group-mem/06.png';
 
 const reviews = [
   {
@@ -6,7 +13,7 @@ const reviews = [
     name: "Priya Sharma",
     role: "Teacher, Delhi",
     review: "Thanks to SHY-EYES, I found my soulmate just 50 km away! Our first date was magical, and now we're planning a future together.",
-    image: "assets/images/group/group-mem/01.png",
+    image: img1,
     rating: 5
   },
   {
@@ -14,7 +21,7 @@ const reviews = [
     name: "Mark Evans",
     role: "Photographer, UK",
     review: "As a traveler in India, I never expected to meet someone so genuine online. SHY-EYES helped bridge that gap beautifully.",
-    image: "assets/images/group/group-mem/02.png",
+    image: img2,
     rating: 5
   },
   {
@@ -22,7 +29,7 @@ const reviews = [
     name: "Rahul Mehta",
     role: "Engineer, Mumbai",
     review: "I was skeptical about dating apps, but SHY-EYES changed my mind. I met Rhea through a live chat and we instantly clicked.",
-    image: "assets/images/group/group-mem/03.png",
+    image: img3,
     rating: 5
   },
   {
@@ -30,7 +37,7 @@ const reviews = [
     name: "Maria Gonzales",
     role: "Writer, Spain",
     review: "SHY-EYES is so user-friendly! I met an amazing Indian guy while visiting Goa. We're now in a beautiful long-distance relationship.",
-    image: "assets/images/group/group-mem/04.png",
+    image: img4,
     rating: 5
   },
   {
@@ -38,7 +45,7 @@ const reviews = [
     name: "Riya & Karan",
     role: "Couple, Bangalore",
     review: "We both swiped right on SHY-EYES just for fun. But after a few video calls and chats, we realized it was real love.",
-    image: "assets/images/group/group-mem/05.png",
+    image: img5,
     rating: 5
   },
   {
@@ -46,7 +53,7 @@ const reviews = [
     name: "Lucia Moretti",
     role: "Software Developer, Italy",
     review: "I built connections with people across India. SHY-EYES offers both casual chats and serious matchmaking. Impressive platform!",
-    image: "assets/images/group/group-mem/06.png",
+    image: img6,
     rating: 5
   }
 ];

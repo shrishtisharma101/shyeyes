@@ -6,6 +6,7 @@ import './assets/css/style.css';
 import '../src/pages/profile/Profile.css';
 import 'aos/dist/aos.css';
 import MainRoutes from './routes/MainRoutes';
+import BackgroundMusic from './components/common/BackgroundMusic';
 
 function App() {
 
@@ -13,7 +14,7 @@ function App() {
       <>
       
         <MainRoutes />
-    
+        <BackgroundMusic />
       </>
       
   );

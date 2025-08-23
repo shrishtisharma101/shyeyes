@@ -65,10 +65,15 @@ const RegisterForm = () => {
 
       if (response.ok && data.status) {
         alert(data.message);
-        // Save user_id in localStorage or context for next step
         localStorage.setItem("user_id", data.user_id);
+
+        if (data.token) {
+          localStorage.setItem("token", data.token); // ✅ Save token for Step 2
+        }
+
         navigate("/nextstep");
-      } else {
+      }
+      else {
         alert(data.message || "Something went wrong!");
       }
     } catch (error) {
@@ -115,10 +120,10 @@ const RegisterForm = () => {
         <h2>REGISTER</h2>
         <form className="account-form" onSubmit={handleSubmit}>
           <div className="form-group">
-            <Person className='material-icons'/>
-            <input 
-              type="text" 
-              placeholder="First Name" 
+            <Person className='material-icons' />
+            <input
+              type="text"
+              placeholder="First Name"
               name="firstname"
               value={formData.firstname}
               onChange={handleChange}
@@ -126,10 +131,10 @@ const RegisterForm = () => {
             />
           </div>
           <div className="form-group">
-            <Person className='material-icons'/>
-            <input 
-              type="text" 
-              placeholder="Last Name" 
+            <Person className='material-icons' />
+            <input
+              type="text"
+              placeholder="Last Name"
               name="lastname"
               value={formData.lastname}
               onChange={handleChange}
@@ -137,10 +142,10 @@ const RegisterForm = () => {
             />
           </div>
           <div className="form-group">
-            <Email className="material-icons"/>
-            <input 
-              type="email" 
-              placeholder="Email" 
+            <Email className="material-icons" />
+            <input
+              type="email"
+              placeholder="Email"
               name="email"
               value={formData.email}
               onChange={handleChange}
@@ -148,10 +153,10 @@ const RegisterForm = () => {
             />
           </div>
           <div className="form-group">
-            <Call className="material-icons"/>
-            <input 
-              type="text" 
-              placeholder="Phone" 
+            <Call className="material-icons" />
+            <input
+              type="text"
+              placeholder="Phone"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
@@ -159,10 +164,10 @@ const RegisterForm = () => {
             />
           </div>
           <div className="form-group">
-            <LocationCity className="material-icons"/>
-            <input 
-              type="text" 
-              placeholder="Address" 
+            <LocationCity className="material-icons" />
+            <input
+              type="text"
+              placeholder="Address"
               name="address"
               value={formData.address}
               onChange={handleChange}
@@ -170,50 +175,50 @@ const RegisterForm = () => {
             />
           </div>
           <div className="form-group">
-            <Lock className="material-icons"/>
-            <input 
-              type={showPassword ? "text" : "password"} 
-              placeholder="Password" 
+            <Lock className="material-icons" />
+            <input
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter 8 digit password"
               name="password"
               id="password"
               value={formData.password}
               onChange={handleChange}
               required
             />
-            <i 
-              className="material-icons toggle-password" 
+            <i
+              className="material-icons toggle-password"
               onClick={() => togglePassword('password')}
-              style={{cursor: 'pointer'}}
+              style={{ cursor: 'pointer' }}
             >
-              {showPassword ? <Visibility/> : <VisibilityOff/>}
+              {showPassword ? <Visibility /> : <VisibilityOff />}
             </i>
           </div>
           <div className="form-group">
-            <Lock className="material-icons"/>
-            <input 
-              type={showConfirmPassword ? "text" : "password"} 
-              placeholder="Confirm Password" 
+            <Lock className="material-icons" />
+            <input
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Confirm Password"
               name="confirm_password"
               id="confirm_password"
               value={formData.confirm_password}
               onChange={handleChange}
               required
             />
-            <i 
-              className="material-icons toggle-password" 
+            <i
+              className="material-icons toggle-password"
               onClick={() => togglePassword('confirm_password')}
-              style={{cursor: 'pointer'}}
+              style={{ cursor: 'pointer' }}
             >
-              {showConfirmPassword ?<Visibility/> : <VisibilityOff/>}
+              {showConfirmPassword ? <Visibility /> : <VisibilityOff />}
             </i>
           </div>
-          
+
           <button type="submit" className="signup-btn" disabled={loading}>
             {loading ? "Please wait..." : "Next"}
           </button>
 
           <div className="login-link">
-            Already have an account? <Link to="/login" style={{color: '#e43059'}}>Login</Link>
+            Already have an account? <Link to="/login" style={{ color: '#e43059' }}>Login</Link>
           </div>
         </form>
       </div>

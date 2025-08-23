@@ -10,7 +10,7 @@ const Header = () => {
   const token = localStorage.getItem("token");
   const isLogin = !!token;
   const [user, setUser] = useState(null);
-
+  const [menuOpen, setMenuOpen] = useState(false);
   const userData = user?.data || null;
 
   useEffect(() => {
@@ -41,7 +41,7 @@ const Header = () => {
     localStorage.removeItem("token");
     window.location.href = "/login";
   };
-
+  
   const goToNotifications = () => {
     navigate("/notifications");   // ✅ now works
   };
@@ -58,7 +58,8 @@ const Header = () => {
             </div>
 
             <div className="menu-area">
-              <ul className="menu">
+              {/* ✅ menuOpen se class toggle kar diya */}
+              <ul className={`menu ${menuOpen ? "active" : ""}`}>
                 {menuData.map((item, index) => (
                   <li key={index}>
                     {item.path ? (
@@ -77,50 +78,57 @@ const Header = () => {
                     )}
                   </li>
                 ))}
-              </ul>
-
-              <div>
-                {isLogin ? (
-                  <div className='justify-space-between align-items-center d-flex gap-2'>
-                    {/* ✅ Profile Link only here */}
-                    <Link to="/profile" state={{ userData }} className="profile-link">
-                      <div className="profile-icon">
-                        <img src={userData?.image_url} alt="Profile" />
-                        {userData?.isOnline && <span className="status-dot"></span>}
-                      </div>
-                      <span className="profile-name">{userData?.f_name}</span>
-                    </Link>
-
-                    {/* Logout button */}
-                    <IconButton type="button" style={{ borderRadius: '50%' }} color="error" onClick={handleLogout}>
-                      <Logout />
-                    </IconButton>
-
-                    {/* Notification button ✅ works now */}
-                    <IconButton type="notification" style={{ borderRadius: '50%' }} color="error" onClick={goToNotifications}>
-                      <Notifications />
-                    </IconButton>
-                  </div>
-                ) : (
-                  <div>
-                    <Link to="/login" className="login">
-                      <i className="icofont-user"></i> <span>LOG IN</span>
-                    </Link>
-                    <Link to="/register" className="signup">
-                      <i className="icofont-users"></i> <span>REGISTER</span>
-                    </Link>
-                  </div>
+ 
+                {/* ✅ Yaha Login/Register ko bhi menu ke andar show kara */}
+                {!isLogin && (
+                  <>
+                    <li>
+                      <Link to="/login" className="login-btn">
+                        <i className="icofont-user"></i> Login
+                      </Link>
+                    </li>
+                    <li>
+                      <Link to="/register" className="register-btn">
+                        <i className="icofont-users"></i> Register
+                      </Link>
+                    </li>
+                  </>
                 )}
-              </div>
+              </ul>
+ 
+              {/* ✅ Right side ke buttons (only jab login hoga) */}
+              {isLogin && (
+                <div className='justify-space-between align-items-center d-flex gap-2'>
+                  <Link to="/profile" state={{ userData }} className="profile-link">
+                    <div className="profile-icon">
+                      <img src={userData?.image_url} alt="Profile" />
+                      {userData?.isOnline && <span className="status-dot"></span>}
+                    </div>
+                    <span className="profile-name">{userData?.f_name}</span>
+                  </Link>
 
-              {/* Mobile icons */}
-              <div className="header-bar d-lg-none">
+                  <IconButton type="button" style={{ borderRadius: '50%' }} color="error" onClick={handleLogout}>
+                    <Logout />
+                  </IconButton>
+
+                  <IconButton type="button" style={{ borderRadius: '50%' }} color="error" onClick={goToNotifications}>
+                    <Notifications />
+                  </IconButton>
+                </div>
+              )}
+ 
+              {/* ✅ Mobile Menu Toggle */}
+              <div
+                _className_={`header-bar d-lg-none ${menuOpen ? "active" : ""}`}
+                _onClick_={() => setMenuOpen(!menuOpen)}
+              >
                 <span></span>
                 <span></span>
                 <span></span>
               </div>
-              <div className="ellepsis-bar d-lg-none">
-                <i className="icofont-info-square"></i>
+ 
+              <div _className_="ellepsis-bar d-lg-none">
+                <i _className_="icofont-info-square"></i>
               </div>
             </div>
           </div>

@@ -37,18 +37,90 @@ import gm4 from '../../assets/images/group/group-mem/04.png';
 import gm5 from '../../assets/images/group/group-mem/05.png';
 import gm6 from '../../assets/images/group/group-mem/06.png';
 
+import defaultAvatar from "../../assets/images/profile/Men-Avtar.jpg";
+import { getFullImageUrl } from '../../assets/utils/getFullImageUrl';
+import Profile from './Profile';
 // Constants
 const IMG_BASE_URL = "https://chat.bitmaxtest.com/admin/public/uploads/";
 
 // Profile Header Component
-const ProfileHeader = ({ userData, onEditProfile }) => {
-  const profileImage = userData?.image_url
-    ? `${IMG_BASE_URL}${userData.image_url}`
-    : c1;
+// const ProfileHeader = ({ userData, onEditProfile }) => {
+//   const profileImage = userData?.image_url
+//     ? `${IMG_BASE_URL}${userData.image_url}`
+//     : c1;
 
-  const coverImage = userData?.cover_image
-    ? `${IMG_BASE_URL}${userData.cover_image}`
-    : c2;
+//   const coverImage = userData?.cover_image
+//     ? `${IMG_BASE_URL}${userData.cover_image}`
+//     : c2;
+
+//   return (
+//     <div className="profile-item">
+//       <div className="profile-cover">
+//         <img
+//           src={coverImage}
+//           alt={userData?.full_name || "profile cover"}
+//           className="w-100 h-100 object-cover"
+//         />
+//         <div className="edit-photo custom-upload">
+//           <div className="file-btn"><i className="icofont-camera"></i>Edit Photo</div>
+//           <input type="file" />
+//         </div>
+//       </div>
+//       <div className="profile-information">
+//         <div className="profile-pic">
+//           <img
+//             src={profileImage}
+//             alt="Profile"
+//           />
+//           <div className="custom-upload">
+//             <div className="file-btn">
+//               <span className="d-none d-lg-inline-block">
+//                 <i className="icofont-camera"></i>Edit
+//               </span>
+//               <span className="d-lg-none mr-0">
+//                 <i className="icofont-plus"></i>
+//               </span>
+//             </div>
+//             <input type="file" />
+//           </div>
+//         </div>
+//         <div className="profile-name">
+//           <h4>{userData?.f_name || userData?.email}</h4>
+//           <p>{userData?.status || "Offline"}</p>
+//           <Link to="/edit-profile" state={{ userData }}>
+//             <button className="btn btn-primary mt-2">
+//               <i className="icofont-edit mr-2"></i>Edit Profile
+//             </button>
+//           </Link>
+
+//         </div>
+//         <ul className="profile-contact">
+//           <li>
+//             <a href="#">
+//               <div className="icon"><i className="icofont-user"></i></div>
+//               <div className="text"><p>Add Friends</p></div>
+//             </a>
+//           </li>
+//           <li>
+//             <a href="#">
+//               <div className="icon"><i className="icofont-envelope"></i></div>
+//               <div className="text"><p>Public Message</p></div>
+//             </a>
+//           </li>
+//           <li>
+//             <a href="#">
+//               <div className="icon"><i className="icofont-envelope"></i></div>
+//               <div className="text"><p>Private Message</p></div>
+//             </a>
+//           </li>
+//         </ul>
+//       </div>
+//     </div>
+//   );
+// };
+const ProfileHeader = ({ userData }) => {
+  const profileImage = getFullImageUrl(userData?.image_url, c1);
+  const coverImage = getFullImageUrl(userData?.cover_image, c2);
 
   return (
     <div className="profile-item">
@@ -63,12 +135,10 @@ const ProfileHeader = ({ userData, onEditProfile }) => {
           <input type="file" />
         </div>
       </div>
+
       <div className="profile-information">
         <div className="profile-pic">
-          <img
-            src={profileImage}
-            alt="Profile"
-          />
+          <img src={profileImage} alt="Profile" />
           <div className="custom-upload">
             <div className="file-btn">
               <span className="d-none d-lg-inline-block">
@@ -81,35 +151,23 @@ const ProfileHeader = ({ userData, onEditProfile }) => {
             <input type="file" />
           </div>
         </div>
+
         <div className="profile-name">
-          <h4>{userData?.f_name || userData?.email}</h4>
-          <p>{userData?.status || "Offline"}</p>
+         <h4>{userData?.f_name || userData?.email}</h4>
+         <h5>{userData?.about ? `${userData.about}` : 'About N/A'}</h5>
+
+          {/* <p>{userData?.status || "Offline"}</p> */}
           <Link to="/edit-profile" state={{ userData }}>
-            <button className="btn btn-primary mt-2">
-              <i className="icofont-edit mr-2"></i>Edit Profile
+            <button className="button">
+              <i className="icofont-edit"></i>Edit Profile
             </button>
           </Link>
-
         </div>
+
         <ul className="profile-contact">
-          <li>
-            <a href="#">
-              <div className="icon"><i className="icofont-user"></i></div>
-              <div className="text"><p>Add Friends</p></div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <div className="icon"><i className="icofont-envelope"></i></div>
-              <div className="text"><p>Public Message</p></div>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <div className="icon"><i className="icofont-envelope"></i></div>
-              <div className="text"><p>Private Message</p></div>
-            </a>
-          </li>
+          <li><a href="#"><div className="icon"><i className="icofont-user"></i></div><div className="text"><p>Add Friends</p></div></a></li>
+          {/* <li><a href="#"><div className="icon"><i className="icofont-envelope"></i></div><div className="text"><p>Public Message</p></div></a></li> */}
+          <li><a href="#"><div className="icon"><i className="icofont-envelope"></i></div><div className="text"><p>Private Message</p></div></a></li>
         </ul>
       </div>
     </div>
@@ -233,7 +291,7 @@ const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
 // Profile Tab Component
 const ProfileTab = ({ userData }) => {
   return (
-    <div className="tab-pane fade" id="profile" role="tabpanel">
+    <div className={`tab-pane activity-page fade show active`} id="profile" role="tabpanel">
       <div className="row">
         <div className="col-xl-8">
           <article>
@@ -243,11 +301,12 @@ const ProfileTab = ({ userData }) => {
                 <ul className="info-list">
                   <li><p className="info-name">Name</p><p className="info-details">{userData?.f_name || 'N/A'}</p></li>
                   <li><p className="info-name">I'm a</p><p className="info-details">{userData?.gender || 'N/A'}</p></li>
-                  <li><p className="info-name">Looking for a</p><p className="info-details">{userData?.looking_for || 'N/A'}</p></li>
-                  <li><p className="info-name">Marital Status</p><p className="info-details">{userData?.marital_status || 'N/A'}</p></li>
+                  <li><p className="info-name">Looking for a</p><p className="info-details">{userData?.looking_for || 'sanskari Ladki'}</p></li>
+                  <li><p className="info-name">Marital Status</p><p className="info-details">{userData?.marital_status || 'UnMarried'}</p></li>
                   <li><p className="info-name">Age</p><p className="info-details">{userData?.age || 'N/A'}</p></li>
                   <li><p className="info-name">Date of Birth</p><p className="info-details">{userData?.dob || 'N/A'}</p></li>
-                  <li><p className="info-name">Address</p><p className="info-details">{userData?.address || 'N/A'}</p></li>
+                  <li><p className="info-name">Address</p><p className="info-details">{userData?.location || 'N/A'}</p></li>
+                  <li><p className="info-name">Bio</p><p className="info-details">{userData?.about || 'N/A'}</p></li>
                 </ul>
               </div>
             </div>
@@ -266,11 +325,75 @@ const ProfileTab = ({ userData }) => {
     </div>
   );
 };
+// const ProfileTab = ({ userData }) => {
+  
+//   // Helper: cleanly return value or fallback
+//   const safeValue = (val) => (val && val !== "null" ? val : "N/A");
+
+//   return (
+//     <div className="tab-pane fade" id="profile" role="tabpanel">
+//       <div className="row">
+//         <div className="col-xl-8">
+//           <article>
+//             <div className="info-card mb-20">
+//               <div className="info-card-title">
+//                 <h6>Base Info</h6>
+//               </div>
+//               <div className="info-card-content">
+//                 <ul className="info-list">
+//                   <li>
+//                     <p className="info-name">Name</p>
+//                     <p className="info-details">{safeValue(userData?.f_name)}</p>
+//                   </li>
+//                   <li>
+//                     <p className="info-name">I'm a</p>
+//                     <p className="info-details">{safeValue(userData?.gender)}</p>
+//                   </li>
+//                   <li>
+//                     <p className="info-name">Looking for a</p>
+//                     <p className="info-details">{safeValue(userData?.looking_for)}</p>
+//                   </li>
+//                   <li>
+//                     <p className="info-name">Marital Status</p>
+//                     <p className="info-details">{safeValue(userData?.marital_status)}</p>
+//                   </li>
+//                   <li>
+//                     <p className="info-name">Age</p>
+//                     <p className="info-details">{safeValue(userData?.age)}</p>
+//                   </li>
+//                   <li>
+//                     <p className="info-name">Date of Birth</p>
+//                     <p className="info-details">{safeValue(userData?.dob)}</p>
+//                   </li>
+//                   <li>
+//                     <p className="info-name">Address</p>
+//                     <p className="info-details">{safeValue(userData?.address)}</p>
+//                   </li>
+//                 </ul>
+//               </div>
+//             </div>
+//           </article>
+//         </div>
+
+//         {/* Sidebar */}
+//         <div className="col-xl-4">
+//           <aside className="mt-5 mt-xl-0">
+//             <SearchWidget />
+//             <LikeMemberWidget />
+//             <ActiveGroupWidget />
+//           </aside>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+
 
 // Friends Tab Component
 const FriendsTab = ({ friends }) => {
   return (
-    <div className="tab-pane fade" id="friends" role="tabpanel">
+    <div className={`tab-pane activity-page fade show active`} id="friends" role="tabpanel">
       <div className="row">
         <div className="col-xl-8">
           <article>
@@ -309,10 +432,11 @@ const FriendsTab = ({ friends }) => {
 
 // Groups Tab Component
 const GroupsTab = ({ groups }) => {
+    console.log("GroupsTab groups:", groups); // Debugging line
   const groupMemberImages = [gm1, gm2, gm3, gm4, gm5, gm6];
 
   return (
-    <div className="tab-pane fade" id="groups" role="tabpanel">
+    <div className={`tab-pane activity-page fade show active`} id="groups" role="tabpanel">
       <div className="row">
         <div className="col-xl-8">
           <article>
@@ -362,8 +486,9 @@ const GroupsTab = ({ groups }) => {
 
 // Photos Tab Component
 const PhotosTab = ({ photos }) => {
+  console.log("PhotosTab photos:", photos); // Debugging line
   return (
-    <div className="tab-pane fade" id="photos" role="tabpanel">
+    <div className={`tab-pane activity-page fade show active`} style={{ backgroundColor: 'red' }} id="photos" role="tabpanel">
       <div className="photo-title text-center border-radius-2 bg-white p-1 mb-4">
         <h3 className="mb-0">All Uploaded Pictures</h3>
       </div>
@@ -386,7 +511,7 @@ const PhotosTab = ({ photos }) => {
 // Media Tab Component
 const MediaTab = () => {
   return (
-    <div className="tab-pane fade" id="media" role="tabpanel">
+    <div className={`tab-pane activity-page fade show active`} id="media" role="tabpanel">
       <div className="row">
         <div className="col-xl-8">
           <article>
@@ -505,31 +630,52 @@ const ProfilePage = () => {
   const [activeSubTab, setActiveSubTab] = useState("pills-mentions");
 
   // Memoize user data to prevent unnecessary re-renders
-  const userData = useMemo(() => ({
+const userData = useMemo(() => {
+  // ✅ Helper to safely handle backend nulls and images
+  const safeImage = (img) => (img && img !== "null" ? img : defaultAvatar);
+
+  return {
     ...passedData,
+
     friends: [
-      { id: 1, name: "Jenifer Guido", image: m1, active: "1 Day" },
-      { id: 2, name: "Andrea Guido", image: m2, active: "2 Day" },
-      { id: 3, name: "Anna hawk", image: m3, active: "5 Day" },
-      { id: 4, name: "Andreas Adam", image: m4, active: "4 Day" },
-      { id: 5, name: "Alaina T", image: m5, active: "1 Day" },
-      { id: 6, name: "Aron Smith", image: m6, active: "3 Day" },
-      { id: 7, name: "Helen Gomz", image: m7, active: "3 Day" },
-      { id: 8, name: "Andrez jr", image: m8, active: "5 Day" },
-      { id: 9, name: "Ladiga Guido", image: m9, active: "5 Day" },
-      { id: 10, name: "Andrea Guido", image: m10, active: "1 Day" },
-      { id: 11, name: "Jene Aiko", image: m11, active: "4 Day" },
-      { id: 12, name: "Jhon Cena", image: m12, active: "2 Day" }
+      { id: 1, name: "Jenifer Guido", image: safeImage(m1), active: "1 Day" },
+      { id: 2, name: "Andrea Guido", image: safeImage(m2), active: "2 Day" },
+      { id: 3, name: "Anna Hawk", image: safeImage(m3), active: "5 Day" },
+      { id: 4, name: "Andreas Adam", image: safeImage(m4), active: "4 Day" },
+      { id: 5, name: "Alaina T", image: safeImage(m5), active: "1 Day" },
+      { id: 6, name: "Aron Smith", image: safeImage(m6), active: "3 Day" },
+      { id: 7, name: "Helen Gomz", image: safeImage(m7), active: "3 Day" },
+      { id: 8, name: "Andrez Jr", image: safeImage(m8), active: "5 Day" },
+      { id: 9, name: "Ladiga Guido", image: safeImage(m9), active: "5 Day" },
+      { id: 10, name: "Andrea Guido", image: safeImage(m10), active: "1 Day" },
+      { id: 11, name: "Jene Aiko", image: safeImage(m11), active: "4 Day" },
+      { id: 12, name: "Jhon Cena", image: safeImage(m12), active: "2 Day" },
     ],
+
     groups: [
-      { id: 1, name: "Active Group A1", image: g1, members: 12 },
-      { id: 2, name: "Active Group A2", image: g2, members: 16 },
-      { id: 3, name: "Active Group A3", image: g3, members: 8 },
-      { id: 4, name: "Active Group A4", image: g4, members: 20 },
-      { id: 5, name: "Active Group A5", image: g5, members: 15 }
+      { id: 1, name: "Active Group A1", image: safeImage(g1), members: 12 },
+      { id: 2, name: "Active Group A2", image: safeImage(g2), members: 16 },
+      { id: 3, name: "Active Group A3", image: safeImage(g3), members: 8 },
+      { id: 4, name: "Active Group A4", image: safeImage(g4), members: 20 },
+      { id: 5, name: "Active Group A5", image: safeImage(g5), members: 15 },
     ],
-    photos: [m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12]
-  }), [passedData]);
+
+    photos: [
+      safeImage(m1),
+      safeImage(m2),
+      safeImage(m3),
+      safeImage(m4),
+      safeImage(m5),
+      safeImage(m6),
+      safeImage(m7),
+      safeImage(m8),
+      safeImage(m9),
+      safeImage(m10),
+      safeImage(m11),
+      safeImage(m12),
+    ],
+  };
+}, [passedData]);
 
   // Handle edit profile navigation
   const handleEditProfile = useCallback(() => {

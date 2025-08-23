@@ -3279,12 +3279,21 @@ select {
   height: 20px;
 }
 
+
+
+.menu.active {
+  display: block;
+}
+.header-bar {
+  cursor: pointer;
+}
+
 .header-bar span {
   height: 3px;
   -webkit-transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   transition: all 0.3s ease;
-  background-color: #fff;
+  background-color: #e83f3f;
   left: 0;
 }
 
@@ -7674,14 +7683,13 @@ body {
   padding: 0;
   background: #fff;
 } */
- 
-.edit-container {
+.editprofile-container {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
  
-.edit-header {
+.editprofile-header {
   width: 100%;
   padding: 15px;
   text-align: center;
@@ -7690,7 +7698,7 @@ body {
   position: relative;
 }
  
-.edit-header .back-arrow {
+.editprofile-back-arrow {
   position: absolute;
   left: 15px;
   top: 15px;
@@ -7698,7 +7706,7 @@ body {
   cursor: pointer;
 }
  
-.edit-card {
+.editprofile-card {
   margin-top: 35px;
   background: white;
   border-radius: 12px;
@@ -7709,12 +7717,12 @@ body {
   text-align: center;
 }
  
-.profile-pic-container {
+.editprofile-profile-pic-container {
   position: relative;
   display: inline-block;
 }
  
-.profile-pic {
+.editprofile-profile-pic {
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -7723,7 +7731,7 @@ body {
   margin-top: -60px;
 }
  
-.edit-icon {
+.editprofile-edit-icon {
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -7736,12 +7744,12 @@ body {
   border: 2px solid white;
 }
  
-.edit-form {
+.editprofile-form {
   margin-top: 20px;
   text-align: left;
 }
  
-.edit-form label {
+.editprofile-form label {
   display: block;
   margin: 10px 0 5px;
   color: #e91e63;
@@ -7749,8 +7757,9 @@ body {
   font-size: 14px;
 }
  
-.edit-form input,
-.edit-form textarea {
+.editprofile-form input,
+.editprofile-form textarea,
+.editprofile-form select {
   width: 100%;
   padding: 10px;
   border: 1.5px solid #e91e63;
@@ -7760,12 +7769,12 @@ body {
   margin-bottom: 10px;
 }
  
-.edit-form textarea {
+.editprofile-form textarea {
   resize: none;
   height: 70px;
 }
  
-.submit-btn {
+.editprofile-btn {
   margin-top: 15px;
   background: linear-gradient(90deg, #f06292, #e91e63);
   color: white;
@@ -7778,10 +7787,36 @@ body {
   box-shadow: 0 4px 10px rgba(233, 30, 99, 0.4);
 }
  
-.submit-btn:hover {
+.editprofile-btn:hover {
   opacity: 0.9;
 }
  
+.editprofile-btn-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+
+.editprofile-dob-container {
+  position: relative;
+  width: 100%;
+}
+ 
+.editprofile-dob-container label {
+  display: block;
+  margin-bottom: 5px;
+}
+ 
+.editprofile-dob-container input {
+  width: 100%;
+  padding: 10px;
+  border: 1.5px solid #e91e63;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+}
  
  
  

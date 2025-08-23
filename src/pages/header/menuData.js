@@ -19,6 +19,16 @@ const menuData = [
     ],
   },
   { label: "Contact", path: "/contact" },
-];
 
+
+
+
+  // 👇 ye naya part add karo
+  // { label: "Login", path: "/login" },
+  // { label: "Register", path: "/register" },
+
+
+
+];
+ 
 export default menuData;

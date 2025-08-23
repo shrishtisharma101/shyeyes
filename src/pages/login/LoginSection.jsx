@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Swal from "sweetalert2";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 const LoginSection = () => {
   // State
@@ -14,6 +15,9 @@ const LoginSection = () => {
 
   // ✅ user state added
   const [user, setUser] = useState(null);
+
+  // ✅ password toggle state
+  const [showPassword, setShowPassword] = useState(false);
 
   // Handle input change
   const handleChange = (e) => {
@@ -135,15 +139,21 @@ const LoginSection = () => {
               </div>
 
               {/* Password */}
-              <div className="form-group">
+              <div className="form-group password-wrapper">
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
                   required
                 />
+                <span
+                  className={`toggle-eye ${showPassword ? "active" : ""}`}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </span>
               </div>
 
               {/* Remember Me + Forget Password */}
@@ -202,15 +212,6 @@ const LoginSection = () => {
               <span className="d-block cate pt-10">
                 Don't Have any Account? <Link to="/register">Register</Link>
               </span>
-              {/* <span className="or"><span>or</span></span>
-              <h5 className="subtitle">Login With Social Media</h5>
-              <ul className="social-media social-color lab-ul d-flex justify-content-center">
-                <li><a href="#" className="facebook"><i className="icofont-facebook"></i></a></li>
-                <li><a href="#" className="twitter"><i className="icofont-twitter"></i></a></li>
-                <li><a href="#" className="linkedin"><i className="icofont-linkedin"></i></a></li>
-                <li><a href="#" className="instagram"><i className="icofont-instagram"></i></a></li>
-                <li><a href="#" className="pinterest"><i className="icofont-pinterest"></i></a></li>
-              </ul> */}
             </div>
           </div>
         </div>

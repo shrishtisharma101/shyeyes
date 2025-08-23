@@ -12,17 +12,23 @@ body {
   justify-content: space-between;
   padding: 80px 8%;
   gap: 50px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; /* large screen me hamesha side by side */
+}
+ 
+.images {
+  display: flex;
+  gap: 20px;
+  flex-wrap: nowrap;   /* <-- images kabhi neeche na jaye */
 }
 
 .images-wrapper {
   position: relative;
   display: flex;
   gap: 20px;
-  flex-wrap: wrap;
   justify-content: center;
+  flex-wrap: nowrap;
 }
-
+ 
 .images img {
   width: 260px;
   height: 380px;
@@ -31,11 +37,11 @@ body {
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
 }
-
-.images img:hover { 
-  transform: scale(1.03); 
+ 
+.images img:hover {
+  transform: scale(1.03);
 }
-
+ 
 .badge {
   position: absolute;
   background-color: #f93d66;
@@ -55,61 +61,62 @@ body {
   z-index: 2;
   opacity: 0;
 }
-
-.badge.show { 
-  animation: popIn 0.8s ease-out forwards; 
+ 
+.badge.show {
+  animation: popIn 0.8s ease-out forwards;
 }
-
+ 
 @keyframes popIn {
-  0% { 
-    transform: translate(-50%, -50%) scale(0.5); 
-    opacity: 0; 
+  0% {
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
   }
-  100% { 
-    transform: translate(-50%, -50%) scale(1); 
-    opacity: 1; 
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
   }
 }
-
-.text { 
-  max-width: 500px; 
+ 
+.text {
+  max-width: 300px;
+ 
 }
-
+ 
 .text h4 {
   color: #f93d66;
   font-size: 20px;
   margin-bottom: 10px;
 }
-
+ 
 .text h2 {
   font-size: 36px;
   color: #252525;
   margin-bottom: 20px;
   font-family: 'Playfair Display', serif;
 }
-
+ 
 .text p {
   color: #555;
   line-height: 1.6;
   margin-bottom: 20px;
 }
-
+ 
 .features {
   list-style: none;
   padding: 0;
   margin-bottom: 20px;
 }
-
+ 
 .features li {
   margin-bottom: 10px;
   color: #f93d66;
   font-weight: 500;
 }
-
-.features li i { 
-  margin-right: 8px; 
+ 
+.features li i {
+  margin-right: 8px;
 }
-
+ 
 button {
   background-color: #f93d66;
   color: white;
@@ -120,15 +127,14 @@ button {
   font-weight: bold;
   transition: 0.3s;
 }
-
-button:hover { 
-  background-color: #d92b53; 
+ 
+button:hover {
+  background-color: #d92b53;
 }
-
 /* -------- SECTION 2: HEX STATS -------- */
 .stats-section {
   position: relative;
-  padding: 60px 8%;
+  padding: -4px 8%;
   display: flex;
   justify-content: center;
   gap: 40px;

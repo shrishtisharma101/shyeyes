@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import UserCard from "./UserCard";
-
+import defImg from "../../assets/images/profile/Women-Avtar.jpg";
 const Profile = () => {
   const navigate = useNavigate();
   const trackRef = useRef(null);
@@ -19,7 +19,7 @@ const Profile = () => {
   const fetchUsers = async () => {
     try {
       const token = localStorage.getItem("token"); // use token if available
-      const res = await fetch("https://chat.bitmaxtest.com/admin/api/active-users", {
+      const res = await fetch("https://chat.bitmaxtest.com/admin/api/best-matches", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +35,7 @@ const Profile = () => {
           id: user.id,
           name: user.name,
           age: user.age || "21 Years Old", // API doesn’t provide age → fallback
-          image: user.image || "http://localhost:8000/default.jpg",
+          image: user.image || defImg,
           online: true,
         }));
         setUsers(formattedUsers);

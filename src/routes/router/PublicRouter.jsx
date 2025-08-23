@@ -4,7 +4,7 @@ import Header from '../../pages/header/Header'
 import Footer from '../../components/common/Footer'
 import LottieAnimations from '../../components/common/LottieAnimations'
 import SuspenseWrapper from '../../components/common/SuspenseWrapper'
-import HeartsBackground from '../../components/common/hearts'
+import HeartsBackground from '../../components/common/Hearts'
 
 const PublicRouter = () => {
   const hideFooterRoutes = ["/chat", "/login", "/register","/nextstep",  "/payment"];
