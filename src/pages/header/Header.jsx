@@ -119,8 +119,8 @@ const Header = () => {
  
               {/* ✅ Mobile Menu Toggle */}
               <div
-                _className_={`header-bar d-lg-none ${menuOpen ? "active" : ""}`}
-                _onClick_={() => setMenuOpen(!menuOpen)}
+                className={`header-bar d-lg-none ${menuOpen ? "active" : ""}`}
+                onClick={() => setMenuOpen(!menuOpen)}
               >
                 <span></span>
                 <span></span>
