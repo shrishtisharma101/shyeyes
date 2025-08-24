@@ -1,20 +1,28 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import img1 from '../../assets/images/member/01.jpg';
+import img2 from '../../assets/images/member/01.jpg';
+import img3 from '../../assets/images/member/01.jpg';
+import img4 from '../../assets/images/member/01.jpg';
+import img5 from '../../assets/images/member/01.jpg';
+import img6 from '../../assets/images/member/01.jpg';
+import def from '../../assets/images/profile/Women-Avtar.jpg';
 
 // ✅ Dummy members if not logged in
 const dummyMembers = [
-  { id: 1, name: "Aarav Sharma", image: "https://randomuser.me/api/portraits/men/32.jpg" },
-  { id: 2, name: "Priya Singh", image: "https://randomuser.me/api/portraits/women/44.jpg" },
-  { id: 3, name: "Rahul Verma", image: "https://randomuser.me/api/portraits/men/28.jpg" },
-  { id: 4, name: "Ananya Desai", image: "https://randomuser.me/api/portraits/women/55.jpg" },
-  { id: 5, name: "Rohan Kapoor", image: "https://randomuser.me/api/portraits/men/45.jpg" },
-  { id: 6, name: "Simran Kaur", image: "https://randomuser.me/api/portraits/women/62.jpg" },
+  { id: 1, name: "Aarav Sharma", image: img1 },
+  { id: 2, name: "Priya Singh", image: img2 },
+  { id: 3, name: "Rahul Verma", image: img3 },
+  { id: 4, name: "Ananya Desai", image: img4 },
+  { id: 5, name: "Rohan Kapoor", image: img5 },
+  { id: 6, name: "Simran Kaur", image: img6 },
 ];
 
 const MemberSection = () => {
   const [members, setMembers] = useState([]);
   const [loading, setLoading] = useState(true);
-
+  const token = localStorage.getItem("token");
+   const isLogin = !!token;
   // ✅ Fetch members from API or fallback to dummy
   const fetchMembers = async () => {
     try {
@@ -38,7 +46,14 @@ const MemberSection = () => {
       const data = await res.json();
 
       if (res.ok && data.status) {
-        setMembers(data.data);
+         const formattedUsers = data.data.map((user) => ({
+                  id: user.id,
+                  name: user.name,
+                  age: user.age || "21 Years Old", // API doesn’t provide age → fallback
+                  image: user.image || def,
+                  online: true,
+                }));
+        setMembers(formattedUsers);
       } else {
         console.error("Error fetching members:", data.message || "Unknown error");
         setMembers(dummyMembers); // fallback dummy if API fails
@@ -77,11 +92,19 @@ const MemberSection = () => {
                     <div className="lab-item member-item style-1">
                       <div className="lab-inner">
                         <div className="lab-thumb">
-                          <img src={member.image} alt={member.name} />
+                          {isLogin ? (
+                            <Link to="/profile">
+                              <img src={member.image} alt={member.name} />
+                            </Link>
+                          ) : (
+                            <Link to="/login">
+                              <img src={member.image} alt={member.name} />
+                            </Link>
+                          )}
                         </div>
                         <div className="lab-content">
                           <h6>
-                            <Link to="/profile">{member.name}</Link>
+                            <Link to="/login">{member.name}</Link>
                           </h6>
                           <p>Active Now</p>
                         </div>
