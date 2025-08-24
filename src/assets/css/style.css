@@ -3278,6 +3278,27 @@ select {
   width: 25px;
   height: 20px;
 }
+.submenu {
+  display: none;
+  padding-left: 15px;
+}
+
+.submenu.active {
+  display: block;
+}
+
+.submenu-toggle {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
 
 
 
@@ -8028,4 +8049,83 @@ body {
 @media (max-width: 420px) {
   #notifications-page .notification-card { flex-direction: column; gap: 10px; }
   #notifications-page .avatar { width: 44px; height: 44px; }
+}
+
+
+/* //profile tab */
+/* Container isolation */
+.profile-tab {
+  padding: 15px;
+  font-family: "Segoe UI", sans-serif;
+  color: #333;
+}
+
+/* Card styles */
+.profile-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease-in-out;
+}
+
+.profile-card:hover {
+  transform: translateY(-3px);
+}
+
+/* Header */
+.profile-card-header {
+  background: linear-gradient(135deg, #d7341e, #e39585f4);
+  color: #fff;
+  padding: 12px 18px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Info list */
+.profile-info-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.profile-info-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 18px;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background 0.2s;
+}
+
+.profile-info-list li:last-child {
+  border-bottom: none;
+}
+
+.profile-info-list li:hover {
+  background: #f9f9ff;
+}
+
+.info-label {
+  font-weight: 600;
+  color: #666;
+}
+
+.info-value {
+  font-weight: 400;
+  color: #222;
+  text-align: right;
+}
+
+/* Sidebar widgets */
+.sidebar-widgets {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+@media (max-width: 992px) {
+  .sidebar-widgets {
+    margin-top: 30px;
+  }
 }

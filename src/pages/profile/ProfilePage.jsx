@@ -42,6 +42,8 @@ import { getFullImageUrl } from '../../assets/utils/getFullImageUrl';
 import Profile from './Profile';
 // Constants
 const IMG_BASE_URL = "https://chat.bitmaxtest.com/admin/public/uploads/";
+const BASE_URL = "https://chat.bitmaxtest.com/admin/api";
+const TOKEN = "getToken"; // Replace with actual token (maybe from auth context/localStorage)
 
 // Profile Header Component
 // const ProfileHeader = ({ userData, onEditProfile }) => {
@@ -142,7 +144,7 @@ const ProfileHeader = ({ userData }) => {
           <div className="custom-upload">
             <div className="file-btn">
               <span className="d-none d-lg-inline-block">
-                <i className="icofont-camera"></i>Edit
+                <i className="icofont-camera"></i>
               </span>
               <span className="d-lg-none mr-0">
                 <i className="icofont-plus"></i>
@@ -175,138 +177,210 @@ const ProfileHeader = ({ userData }) => {
 };
 
 // Activity Tab Component
-const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
-  return (
-    <div className={`tab-pane activity-page fade show active`} id="activity" role="tabpanel">
-      <div className="row">
-        <div className="col-xl-8">
-          <article>
-            <div className="activity-tab">
-              <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                <li className="nav-item" role="presentation">
-                  <button
-                    className={`nav-link ${activeSubTab === 'pills-personal' ? 'active' : ''}`}
-                    onClick={() => setActiveSubTab('pills-personal')}
-                  >
-                    <i className="icofont-user"></i> Personal
-                  </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <button
-                    className={`nav-link ${activeSubTab === 'pills-mentions' ? 'active' : ''}`}
-                    onClick={() => setActiveSubTab('pills-mentions')}
-                  >
-                    <i className="icofont-edit"></i> Mentions
-                  </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <button
-                    className={`nav-link ${activeSubTab === 'pills-favorites' ? 'active' : ''}`}
-                    onClick={() => setActiveSubTab('pills-favorites')}
-                  >
-                    <i className="icofont-heart-alt"></i> Favorites
-                  </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <button
-                    className={`nav-link ${activeSubTab === 'pills-friends' ? 'active' : ''}`}
-                    onClick={() => setActiveSubTab('pills-friends')}
-                  >
-                    <i className="icofont-favourite"></i> Friends
-                  </button>
-                </li>
-                <li className="nav-item" role="presentation">
-                  <button
-                    className={`nav-link ${activeSubTab === 'pills-groups' ? 'active' : ''}`}
-                    onClick={() => setActiveSubTab('pills-groups')}
-                  >
-                    <i className="icofont-users"></i> Groups
-                  </button>
-                </li>
-                <li className="custom-select">
-                  <select>
-                    <option value="1">Everything</option>
-                    <option value="2">Recent</option>
-                    <option value="3">Relevant</option>
-                    <option value="4">Popular</option>
-                  </select>
-                </li>
-              </ul>
+// const ActivityTab = ({ activeSubTab, setActiveSubTab }) => {
+//   return (
+//     <div className={`tab-pane activity-page fade show active`} id="activity" role="tabpanel">
+//       <div className="row">
+//         <div className="col-xl-8">
+//           <article>
+//             <div className="activity-tab">
+//               <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
+//                 <li className="nav-item" role="presentation">
+//                   <button
+//                     className={`nav-link ${activeSubTab === 'pills-personal' ? 'active' : ''}`}
+//                     onClick={() => setActiveSubTab('pills-personal')}
+//                   >
+//                     <i className="icofont-user"></i> Personal
+//                   </button>
+//                 </li>
+//                 <li className="nav-item" role="presentation">
+//                   <button
+//                     className={`nav-link ${activeSubTab === 'pills-mentions' ? 'active' : ''}`}
+//                     onClick={() => setActiveSubTab('pills-mentions')}
+//                   >
+//                     <i className="icofont-edit"></i> Mentions
+//                   </button>
+//                 </li>
+//                 <li className="nav-item" role="presentation">
+//                   <button
+//                     className={`nav-link ${activeSubTab === 'pills-favorites' ? 'active' : ''}`}
+//                     onClick={() => setActiveSubTab('pills-favorites')}
+//                   >
+//                     <i className="icofont-heart-alt"></i> Favorites
+//                   </button>
+//                 </li>
+//                 <li className="nav-item" role="presentation">
+//                   <button
+//                     className={`nav-link ${activeSubTab === 'pills-friends' ? 'active' : ''}`}
+//                     onClick={() => setActiveSubTab('pills-friends')}
+//                   >
+//                     <i className="icofont-favourite"></i> Friends
+//                   </button>
+//                 </li>
+//                 <li className="nav-item" role="presentation">
+//                   <button
+//                     className={`nav-link ${activeSubTab === 'pills-groups' ? 'active' : ''}`}
+//                     onClick={() => setActiveSubTab('pills-groups')}
+//                   >
+//                     <i className="icofont-users"></i> Groups
+//                   </button>
+//                 </li>
+//                 <li className="custom-select">
+//                   <select>
+//                     <option value="1">Everything</option>
+//                     <option value="2">Recent</option>
+//                     <option value="3">Relevant</option>
+//                     <option value="4">Popular</option>
+//                   </select>
+//                 </li>
+//               </ul>
 
-              <div className="tab-content activity-content" id="pills-tabContent">
-                <div className={`tab-pane fade ${activeSubTab === 'pills-mentions' ? 'show active' : ''}`} id="pills-mentions" role="tabpanel">
-                  <div className="post-item mb-20">
-                    <div className="post-content">
-                      <div className="post-author">
-                        <div className="post-author-inner">
-                          <div className="author-thumb">
-                            <img src={c1} alt="user profile" />
-                          </div>
-                          <div className="author-details">
-                            <h6><a href="#">William Smith</a></h6>
-                            <ul className="post-status">
-                              <li className="post-privacy"><i className="icofont-world"></i> Public</li>
-                              <li className="post-time">6 Minutes Ago</li>
-                            </ul>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="post-description">
-                        <p>Quickly deliver going forward methods info create empowerment before client-centered bandwidth. Credibly pontificate interoperable leadership skills and B2B data awesome Continually whiteboard.</p>
-                      </div>
-                    </div>
-                    <div className="post-meta">
-                      <div className="post-meta-top">
-                        <p><a href="#"><i className="icofont-like"></i> <i className="icofont-heart"></i> <i className="icofont-laughing"></i> <span>Julia, Petrova and 306 like this</span></a></p>
-                        <p><a href="#">136 Comments</a></p>
-                      </div>
-                      <div className="post-meta-bottom">
-                        <ul className="react-list">
-                          <li className="react"><a href="#"><i className="icofont-like"></i> Like</a></li>
-                          <li className="react"><a href="#"><i className="icofont-speech-comments"></i> Comment</a></li>
-                          <li className="react"><a href="#"><i className="icofont-share"></i> Share</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </article>
-        </div>
+//               <div className="tab-content activity-content" id="pills-tabContent">
+//                 <div className={`tab-pane fade ${activeSubTab === 'pills-mentions' ? 'show active' : ''}`} id="pills-mentions" role="tabpanel">
+//                   <div className="post-item mb-20">
+//                     <div className="post-content">
+//                       <div className="post-author">
+//                         <div className="post-author-inner">
+//                           <div className="author-thumb">
+//                             <img src={c1} alt="user profile" />
+//                           </div>
+//                           <div className="author-details">
+//                             <h6><a href="#">William Smith</a></h6>
+//                             <ul className="post-status">
+//                               <li className="post-privacy"><i className="icofont-world"></i> Public</li>
+//                               <li className="post-time">6 Minutes Ago</li>
+//                             </ul>
+//                           </div>
+//                         </div>
+//                       </div>
+//                       <div className="post-description">
+//                         <p>Quickly deliver going forward methods info create empowerment before client-centered bandwidth. Credibly pontificate interoperable leadership skills and B2B data awesome Continually whiteboard.</p>
+//                       </div>
+//                     </div>
+//                     <div className="post-meta">
+//                       <div className="post-meta-top">
+//                         <p><a href="#"><i className="icofont-like"></i> <i className="icofont-heart"></i> <i className="icofont-laughing"></i> <span>Julia, Petrova and 306 like this</span></a></p>
+//                         <p><a href="#">136 Comments</a></p>
+//                       </div>
+//                       <div className="post-meta-bottom">
+//                         <ul className="react-list">
+//                           <li className="react"><a href="#"><i className="icofont-like"></i> Like</a></li>
+//                           <li className="react"><a href="#"><i className="icofont-speech-comments"></i> Comment</a></li>
+//                           <li className="react"><a href="#"><i className="icofont-share"></i> Share</a></li>
+//                         </ul>
+//                       </div>
+//                     </div>
+//                   </div>
+//                 </div>
+//               </div>
+//             </div>
+//           </article>
+//         </div>
 
-        {/* Sidebar */}
-        <div className="col-xl-4">
-          <aside className="mt-5 mt-xl-0">
-            <SearchWidget />
-            <LikeMemberWidget />
-            <ActiveGroupWidget />
-          </aside>
-        </div>
-      </div>
-    </div>
-  );
-};
+//         {/* Sidebar */}
+//         <div className="col-xl-4">
+//           <aside className="mt-5 mt-xl-0">
+//             <SearchWidget />
+//             <LikeMemberWidget />
+//             <ActiveGroupWidget />
+//           </aside>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 // Profile Tab Component
+// const ProfileTab = ({ userData }) => {
+//   return (
+//     <div className={`tab-pane activity-page fade show active`} id="profile" role="tabpanel">
+//       <div className="row">
+//         <div className="col-xl-8">
+//           <article>
+//             <div className="info-card mb-20">
+//               <div className="info-card-title"><h6>Base Info</h6></div>
+//               <div className="info-card-content">
+//                 <ul className="info-list">
+//                   <li><p className="info-name">Name</p><p className="info-details">{userData?.f_name || 'N/A'}</p></li>
+//                   <li><p className="info-name">I'm a</p><p className="info-details">{userData?.gender || 'N/A'}</p></li>
+//                   <li><p className="info-name">Looking for a</p><p className="info-details">{userData?.looking_for || 'Money'}</p></li>
+//                   <li><p className="info-name">Marital Status</p><p className="info-details">{userData?.marital_status || 'UnMarried'}</p></li>
+//                   <li><p className="info-name">Age</p><p className="info-details">{userData?.age || 'N/A'}</p></li>
+//                   <li><p className="info-name">Date of Birth</p><p className="info-details">{userData?.dob || 'N/A'}</p></li>
+//                   <li><p className="info-name">Address</p><p className="info-details">{userData?.location || 'N/A'}</p></li>
+//                   <li><p className="info-name">Bio</p><p className="info-details">{userData?.about || 'N/A'}</p></li>
+//                 </ul>
+//               </div>
+//             </div>
+//           </article>
+//         </div>
+
+//         {/* Sidebar */}
+//         <div className="col-xl-4">
+//           <aside className="mt-5 mt-xl-0">
+//             <SearchWidget />
+//             <LikeMemberWidget />
+//             {/* <ActiveGroupWidget /> */}
+//           </aside>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
 const ProfileTab = ({ userData }) => {
   return (
-    <div className={`tab-pane activity-page fade show active`} id="profile" role="tabpanel">
+    <div
+      className="tab-pane activity-page fade show active profile-tab"
+      id="profile"
+      role="tabpanel"
+    >
       <div className="row">
-        <div className="col-xl-8">
+        {/* Main Info */}
+        <div className="col-xl-8 col-lg-7">
           <article>
-            <div className="info-card mb-20">
-              <div className="info-card-title"><h6>Base Info</h6></div>
-              <div className="info-card-content">
-                <ul className="info-list">
-                  <li><p className="info-name">Name</p><p className="info-details">{userData?.f_name || 'N/A'}</p></li>
-                  <li><p className="info-name">I'm a</p><p className="info-details">{userData?.gender || 'N/A'}</p></li>
-                  <li><p className="info-name">Looking for a</p><p className="info-details">{userData?.looking_for || 'sanskari Ladki'}</p></li>
-                  <li><p className="info-name">Marital Status</p><p className="info-details">{userData?.marital_status || 'UnMarried'}</p></li>
-                  <li><p className="info-name">Age</p><p className="info-details">{userData?.age || 'N/A'}</p></li>
-                  <li><p className="info-name">Date of Birth</p><p className="info-details">{userData?.dob || 'N/A'}</p></li>
-                  <li><p className="info-name">Address</p><p className="info-details">{userData?.location || 'N/A'}</p></li>
-                  <li><p className="info-name">Bio</p><p className="info-details">{userData?.about || 'N/A'}</p></li>
+            <div className="profile-card">
+              <div className="profile-card-header">
+                <h6>Base Info</h6>
+              </div>
+              <div className="profile-card-body">
+                <ul className="profile-info-list">
+                  <li>
+                    <span className="info-label">Name</span>
+                    <span className="info-value">{userData?.f_name || "N/A"}</span>
+                  </li>
+                  <li>
+                    <span className="info-label">I'm a</span>
+                    <span className="info-value">{userData?.gender || "N/A"}</span>
+                  </li>
+                  <li>
+                    <span className="info-label">Looking for a</span>
+                    <span className="info-value">
+                      {userData?.looking_for || "Money"}
+                    </span>
+                  </li>
+                  <li>
+                    <span className="info-label">Marital Status</span>
+                    <span className="info-value">
+                      {userData?.marital_status || "UnMarried"}
+                    </span>
+                  </li>
+                  <li>
+                    <span className="info-label">Age</span>
+                    <span className="info-value">{userData?.age || "N/A"}</span>
+                  </li>
+                  <li>
+                    <span className="info-label">Date of Birth</span>
+                    <span className="info-value">{userData?.dob || "N/A"}</span>
+                  </li>
+                  <li>
+                    <span className="info-label">Address</span>
+                    <span className="info-value">{userData?.location || "N/A"}</span>
+                  </li>
+                  <li>
+                    <span className="info-label">Bio</span>
+                    <span className="info-value">{userData?.about || "N/A"}</span>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -314,17 +388,17 @@ const ProfileTab = ({ userData }) => {
         </div>
 
         {/* Sidebar */}
-        <div className="col-xl-4">
-          <aside className="mt-5 mt-xl-0">
+        <div className="col-xl-4 col-lg-5">
+          <aside className="sidebar-widgets">
             <SearchWidget />
             <LikeMemberWidget />
-            <ActiveGroupWidget />
           </aside>
         </div>
       </div>
     </div>
   );
 };
+
 // const ProfileTab = ({ userData }) => {
   
 //   // Helper: cleanly return value or fallback
@@ -378,7 +452,7 @@ const ProfileTab = ({ userData }) => {
 //         {/* Sidebar */}
 //         <div className="col-xl-4">
 //           <aside className="mt-5 mt-xl-0">
-//             <SearchWidget />
+            // <SearchWidget />
 //             <LikeMemberWidget />
 //             <ActiveGroupWidget />
 //           </aside>
@@ -422,7 +496,7 @@ const FriendsTab = ({ friends }) => {
           <aside className="mt-5 mt-xl-0">
             <SearchWidget />
             <LikeMemberWidget />
-            <ActiveGroupWidget />
+            {/* <ActiveGroupWidget /> */}
           </aside>
         </div>
       </div>
@@ -476,7 +550,7 @@ const GroupsTab = ({ groups }) => {
           <aside className="mt-5 mt-xl-0">
             <SearchWidget />
             <LikeMemberWidget />
-            <ActiveGroupWidget />
+            {/* <ActiveGroupWidget /> */}
           </aside>
         </div>
       </div>
@@ -485,31 +559,125 @@ const GroupsTab = ({ groups }) => {
 };
 
 // Photos Tab Component
-const PhotosTab = ({ photos }) => {
-  console.log("PhotosTab photos:", photos); // Debugging line
-  return (
-    <div className={`tab-pane activity-page fade show active`} style={{ backgroundColor: 'red' }} id="photos" role="tabpanel">
-      <div className="photo-title text-center border-radius-2 bg-white p-1 mb-4">
-        <h3 className="mb-0">All Uploaded Pictures</h3>
-      </div>
-      <div className="row g-3 g-lg-4 justify-content-center row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6">
-        {photos.map((photo, index) => (
-          <div key={index} className="col">
-            <div className="gallery-img">
-              <img src={photo} alt="gallery" className="rounded" />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="load-btn">
-        <a href="#" className="lab-btn">Load More <i className="icofont-spinner"></i></a>
-      </div>
-    </div>
-  );
-};
+// const PhotosTab = () => {
+//     // ✅ Fetch images on mount
+//   useEffect(() => {
+//     fetchImages();
+//   }, []);
+
+//   const [photos, setPhotos] = useState([]);
+//   const [loading, setLoading] = useState(false);
+
+//   // ✅ Fetch all images
+//   const fetchImages = async () => {
+//     try {
+//       setLoading(true);
+//       const res = await axios.get(`${BASE_URL}/images`, {
+//         headers: { Authorization: `Bearer ${TOKEN}` },
+//       });
+
+//       if (res.data.success) {
+//         setPhotos(res.data.images || []); // adjust if API response differs
+//       }
+//     } catch (err) {
+//       console.error("Error fetching images:", err);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   // ✅ Upload image
+//   const handleUpload = async (e) => {
+//     const file = e.target.files[0];
+//     if (!file) return;
+
+//     const formData = new FormData();
+//     formData.append("image", file);
+
+//     try {
+//       const res = await axios.post(`${BASE_URL}/images/upload`, formData, {
+//         headers: {
+//           Authorization: `Bearer ${TOKEN}`,
+//           "Content-Type": "multipart/form-data",
+//         },
+//       });
+
+//       if (res.data.success) {
+//         // push new image into state
+//         setPhotos((prev) => [...prev, res.data.image]);
+//       }
+//     } catch (err) {
+//       console.error("Error uploading image:", err);
+//     }
+//   };
+
+//   // ✅ Delete image
+//   const handleDelete = async (id) => {
+//     try {
+//       const res = await axios.delete(`${BASE_URL}/images/${id}`, {
+//         headers: { Authorization: `Bearer ${TOKEN}` },
+//       });
+
+//       if (res.data.success) {
+//         setPhotos((prev) => prev.filter((p) => p.id !== id));
+//       }
+//     } catch (err) {
+//       console.error("Error deleting image:", err);
+//     }
+//   };
+
+
+//   return (
+//     <div
+//       className="tab-pane activity-page fade show active"
+//       style={{ backgroundColor: "red" }}
+//       id="photos"
+//       role="tabpanel"
+//     >
+//       <div className="photo-title text-center border-radius-2 bg-white p-1 mb-4">
+//         <h3 className="mb-0">All Uploaded Pictures</h3>
+//       </div>
+
+//       {/* Upload input */}
+//       <div className="text-center mb-3">
+//         <input type="file" onChange={handleUpload} />
+//       </div>
+
+//       {loading ? (
+//         <p className="text-center">Loading images...</p>
+//       ) : (
+//         <div className="row g-3 g-lg-4 justify-content-center row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6">
+//           {photos.map((photo) => (
+//             <div key={photo.id} className="col">
+//               <div className="gallery-img position-relative">
+//                 <img
+//                   src={photo.url} // assuming API returns image URL
+//                   alt="gallery"
+//                   className="rounded w-100"
+//                 />
+//                 <button
+//                   className="btn btn-sm btn-danger position-absolute top-0 end-0"
+//                   onClick={() => handleDelete(photo.id)}
+//                 >
+//                   ✕
+//                 </button>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       )}
+
+//       <div className="load-btn text-center mt-3">
+//         <button className="lab-btn" onClick={fetchImages}>
+//           Reload <i className="icofont-spinner"></i>
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
 
 // Media Tab Component
-const MediaTab = () => {
+const MediaTab = async () => {
   return (
     <div className={`tab-pane activity-page fade show active`} id="media" role="tabpanel">
       <div className="row">
@@ -527,7 +695,7 @@ const MediaTab = () => {
           <aside className="mt-5 mt-xl-0">
             <SearchWidget />
             <LikeMemberWidget />
-            <ActiveGroupWidget />
+            {/* <ActiveGroupWidget /> */}
           </aside>
         </div>
       </div>
@@ -587,38 +755,38 @@ const LikeMemberWidget = () => {
   );
 };
 
-const ActiveGroupWidget = () => {
-  const groupMemberImages = [gm1, gm2, gm3, gm4, gm5, gm6];
+// const ActiveGroupWidget = () => {
+//   const groupMemberImages = [gm1, gm2, gm3, gm4, gm5, gm6];
 
-  return (
-    <div className="widget active-group">
-      <div className="widget-inner">
-        <div className="widget-title"><h5>join the group</h5></div>
-        <div className="widget-content">
-          <div className="group-item lab-item">
-            <div className="lab-inner d-flex flex-wrap align-items-center">
-              <div className="lab-content w-100">
-                <h6>Active Group A1</h6>
-                <p>Collaboratively fabricate best breed and applications through visionary</p>
-                <ul className="img-stack d-flex">
-                  {groupMemberImages.map((image, i) => (
-                    <li key={i}><img src={image} alt="group member" /></li>
-                  ))}
-                  <li className="bg-theme">12+</li>
-                </ul>
-                <div className="test">
-                  <a href="profile.html" className="lab-btn">
-                    <i className="icofont-users-alt-5"></i> View Group
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+//   return (
+//     <div className="widget active-group">
+//       <div className="widget-inner">
+//         <div className="widget-title"><h5>join the group</h5></div>
+//         <div className="widget-content">
+//           <div className="group-item lab-item">
+//             <div className="lab-inner d-flex flex-wrap align-items-center">
+//               <div className="lab-content w-100">
+//                 <h6>Active Group A1</h6>
+//                 <p>Collaboratively fabricate best breed and applications through visionary</p>
+//                 <ul className="img-stack d-flex">
+//                   {groupMemberImages.map((image, i) => (
+//                     <li key={i}><img src={image} alt="group member" /></li>
+//                   ))}
+//                   <li className="bg-theme">12+</li>
+//                 </ul>
+//                 <div className="test">
+//                   <a href="profile.html" className="lab-btn">
+//                     <i className="icofont-users-alt-5"></i> View Group
+//                   </a>
+//                 </div>
+//               </div>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 // Main ProfilePage Component
 const ProfilePage = () => {
@@ -626,7 +794,7 @@ const ProfilePage = () => {
   const navigate = useNavigate();
   const passedData = location.state?.userData;
 
-  const [activeTab, setActiveTab] = useState("activity");
+  const [activeTab, setActiveTab] = useState("profile");
   const [activeSubTab, setActiveSubTab] = useState("pills-mentions");
 
   // Memoize user data to prevent unnecessary re-renders
@@ -684,20 +852,20 @@ const userData = useMemo(() => {
 
   const renderTabContent = useCallback(() => {
     switch (activeTab) {
-      case 'activity':
-        return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
+      // case 'activity':
+      //   return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
       case 'profile':
         return <ProfileTab userData={userData} />;
       case 'friends':
         return <FriendsTab friends={userData.friends} />;
-      case 'groups':
-        return <GroupsTab groups={userData.groups} />;
+      // case 'groups':
+      //   return <GroupsTab groups={userData.groups} />;
       case 'photos':
         return <PhotosTab photos={userData.photos} />;
-      case 'media':
-        return <MediaTab />;
+      // case 'media':
+      //   return <MediaTab />;
       default:
-        return <ActivityTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
+        return <ProfileTab activeSubTab={activeSubTab} setActiveSubTab={setActiveSubTab} />;
     }
   }, [activeTab, activeSubTab, userData]);
 

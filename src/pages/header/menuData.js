@@ -1,7 +1,7 @@
 
 const menuData = [
   { label: "Home", path: "/" },
-  { label: "About Us", path: "/about" },
+ 
   {
     label: "Features",
     subMenu: [
@@ -19,7 +19,7 @@ const menuData = [
     ],
   },
   { label: "Contact", path: "/contact" },
-
+   { label: "About Us", path: "/about" },
 
 
 
